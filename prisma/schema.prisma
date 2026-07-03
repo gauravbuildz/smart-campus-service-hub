@@ -9,50 +9,108 @@ generator client {
 }
 
 model User {
-  id            String          @id @default(uuid())
-  name          String?
-  email         String          @unique
-  password      String
-  role          String          @default("STUDENT") // STUDENT or ADMIN
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  notices       Notice[]
-  issues        Issue[]
-  lostFound     LostAndFound[]
+  id                    String                  @id @default(uuid())
+  name                  String?
+  email                 String                  @unique
+  password              String
+  role                  String                  @default("STUDENT") // STUDENT or ADMIN
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  notices               Notice[]
+  issues                Issue[]
+  lostFound             LostAndFound[]
+  claimRequests         ClaimRequest[]
+  notifications         Notification[]
+  receivedNotifications NotificationRecipient[]
 }
 
 model Notice {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  category    String   // EVENT or NOTICE
-  date        DateTime @default(now())
-  authorId    String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
+  id            String    @id @default(uuid())
+  title         String
+  description   String
+  category      String    // EVENT or NOTICE (or EXAM, EVENT, CIRCULAR, GENERAL)
+  priority      String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  attachmentUrl String?   // notice attachments
+  date          DateTime  @default(now())
+  authorId      String
+  author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  isPinned      Boolean   @default(false)
+  expiryDate    DateTime?
+  summary       String?   // AI-generated summary
+  createdAt     DateTime  @default(now())
 }
 
 model Issue {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  category    String   // HOSTEL, WIFI, CLASSROOM
-  status      String   @default("PENDING") // PENDING or RESOLVED
-  studentId   String
-  student     User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String          @id @default(uuid())
+  title         String
+  description   String
+  category      String          // HOSTEL, WIFI, CLASSROOM
+  status        String          @default("PENDING") // PENDING, IN_PROGRESS, RESOLVED
+  severity      String          @default("MEDIUM") // LOW, MEDIUM, HIGH
+  attachmentUrl String?         // complaint attachments
+  studentId     String
+  student       User            @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  history       StatusHistory[]
+}
+
+model StatusHistory {
+  id        String   @id @default(uuid())
+  issueId   String
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  status    String   // PENDING, IN_PROGRESS, RESOLVED
+  updatedBy String   // Name or User ID
+  comment   String?  // Explanation
+  createdAt DateTime @default(now())
 }
 
 model LostAndFound {
-  id          String   @id @default(uuid())
-  itemName    String
-  description String
-  type        String   // LOST or FOUND
-  status      String   @default("REPORTED") // REPORTED or RESOLVED
-  location    String
-  reporterId  String
-  reporter    User     @relation(fields: [reporterId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String         @id @default(uuid())
+  itemName      String
+  description   String
+  category      String         @default("OTHER") // ELECTRONICS, BOOKS, ID_CARDS, CLOTHING, OTHER
+  type          String         // LOST or FOUND
+  status        String         @default("REPORTED") // REPORTED, RESOLVED, CLAIMED
+  location      String
+  imageUrl      String?        // Image upload URL
+  reporterId    String
+  reporter      User           @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  claimRequests ClaimRequest[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model ClaimRequest {
+  id          String       @id @default(uuid())
+  itemId      String
+  item        LostAndFound @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  requesterId String
+  requester   User         @relation(fields: [requesterId], references: [id], onDelete: Cascade)
+  proof       String       // Proof description
+  imageUrl    String?      // Claim proof image
+  status      String       @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Notification {
+  id         String                  @id @default(uuid())
+  title      String
+  message    String
+  link       String?                 // Navigation link
+  senderId   String?
+  sender     User?                   @relation(fields: [senderId], references: [id], onDelete: SetNull)
+  recipients NotificationRecipient[]
+  createdAt  DateTime                @default(now())
+}
+
+model NotificationRecipient {
+  id             String       @id @default(uuid())
+  notificationId String
+  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isRead         Boolean      @default(false)
+  readAt         DateTime?
 }

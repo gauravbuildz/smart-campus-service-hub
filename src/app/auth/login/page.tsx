@@ -27,8 +27,7 @@ export default function LoginPage() {
         toast.error(res.error || 'Invalid credentials');
       } else {
         toast.success('Successfully logged in!');
-        router.push('/dashboard');
-        router.refresh();
+        window.location.href = '/dashboard';
       }
     } catch (err: any) {
       toast.error('An unexpected error occurred.');

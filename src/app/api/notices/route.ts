@@ -5,15 +5,24 @@ import { db } from '@/lib/db';
 
 export async function GET() {
   try {
+    const now = new Date();
+
     const notices = await db.notice.findMany({
+      where: {
+        OR: [
+          { expiryDate: null },
+          { expiryDate: { gte: now } },
+        ],
+      },
       include: {
         author: {
           select: { name: true, email: true },
         },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: [
+        { isPinned: 'desc' },
+        { createdAt: 'desc' },
+      ],
     });
     return NextResponse.json(notices);
   } catch (error) {
@@ -25,23 +34,62 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || (session.user as any).role !== 'ADMIN') {
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const user = session.user as any;
+    const dbUser = await db.user.findUnique({
+      where: { id: user.id },
+      select: { role: true },
+    });
+    const isAdmin = dbUser?.role === 'ADMIN';
+    if (!isAdmin) {
       return NextResponse.json({ error: 'Unauthorized. Admins only.' }, { status: 403 });
     }
 
-    const { title, description, category } = await req.json();
+    const { title, description, category, isPinned, expiryDate, priority, attachmentUrl } = await req.json();
     if (!title || !description || !category) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
+
+    const parsedExpiryDate = expiryDate ? new Date(expiryDate) : null;
 
     const notice = await db.notice.create({
       data: {
         title,
         description,
         category,
+        priority: priority || 'MEDIUM',
+        attachmentUrl: attachmentUrl || null,
+        isPinned: !!isPinned,
+        expiryDate: parsedExpiryDate,
         authorId: (session.user as any).id,
       },
     });
+
+    // Notify all users about the new notice
+    const allUsers = await db.user.findMany({
+      select: { id: true },
+      where: { id: { not: (session.user as any).id } },
+    });
+
+    if (allUsers.length > 0) {
+      await db.notification.create({
+        data: {
+          title: `New Notice: ${category} (${priority || 'MEDIUM'})`,
+          message: `Announcement: "${title}" has been posted.`,
+          link: '/dashboard/notices',
+          senderId: (session.user as any).id,
+          recipients: {
+            createMany: {
+              data: allUsers.map((u) => ({
+                userId: u.id,
+              })),
+            },
+          },
+        },
+      });
+    }
 
     return NextResponse.json(notice);
   } catch (error) {
@@ -53,7 +101,16 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || (session.user as any).role !== 'ADMIN') {
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const user = session.user as any;
+    const dbUser = await db.user.findUnique({
+      where: { id: user.id },
+      select: { role: true },
+    });
+    const isAdmin = dbUser?.role === 'ADMIN';
+    if (!isAdmin) {
       return NextResponse.json({ error: 'Unauthorized. Admins only.' }, { status: 403 });
     }
 

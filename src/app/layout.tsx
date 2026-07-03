@@ -4,6 +4,9 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { ToastContainer } from "@/components/Toast";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
