@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Bell, AlertTriangle, Search, LogOut, Menu, X, Calendar, Check, MailOpen } from 'lucide-react';
+import { LayoutDashboard, Bell, AlertTriangle, Search, LogOut, Menu, X, Calendar, Check, MailOpen, Home } from 'lucide-react';
 import useSWR from 'swr';
 
 interface SidebarItem {
@@ -175,16 +175,37 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
         {/* Top Navbar */}
         <header className="flex h-16 items-center justify-between px-8 border-b border-slate-200 bg-white shadow-sm z-10 shrink-0">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Mobile Hamburger menu */}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 border border-slate-200 mr-1"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
 
-          <div className="hidden md:block">
-            <h1 className="text-sm font-semibold text-slate-500">
-              Welcome back, <span className="text-slate-800 font-bold">{user?.name?.split(' ')[0]}</span> 👋
+            {/* Campus Hub Branding */}
+            <span className="text-sm font-extrabold text-slate-800 flex items-center gap-2 shrink-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-sm animate-pulse" />
+              <span>Campus Hub</span>
+            </span>
+
+            <span className="text-slate-300">|</span>
+
+            {/* Premium SaaS Home Button */}
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 text-xs font-semibold text-slate-600 hover:text-slate-800 transition-all duration-200 shadow-sm shrink-0"
+            >
+              <Home className="w-3.5 h-3.5 text-slate-400" />
+              <span>Home</span>
+            </Link>
+
+            <span className="text-slate-300">|</span>
+
+            {/* Welcome back message */}
+            <h1 className="text-xs font-semibold text-slate-500 truncate max-w-[120px] sm:max-w-none">
+              Welcome back, <span className="text-slate-800 font-extrabold">{user?.name?.split(' ')[0] || 'User'}</span> 👋
             </h1>
           </div>
 
