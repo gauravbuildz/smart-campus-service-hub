@@ -28,9 +28,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function NoticesPage() {
   const { data: session, status } = useSession();
-  const { data: notices = [], mutate: mutateNotices, error } = useSWR<Notice[]>('/api/notices', fetcher, {
+  const { data: noticesRaw, mutate: mutateNotices, error } = useSWR<Notice[]>('/api/notices', fetcher, {
     refreshInterval: 5000,
   });
+  const notices = Array.isArray(noticesRaw) ? noticesRaw : [];
 
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);

@@ -46,8 +46,11 @@ export default function LostFoundPage() {
   const { data: session, status } = useSession();
   
   // Real-Time Background Synchronization with SWR
-  const { data: items = [], mutate: mutateItems } = useSWR<Item[]>('/api/lost-found', fetcher, { refreshInterval: 5000 });
-  const { data: claims = [], mutate: mutateClaims } = useSWR<ClaimRequest[]>('/api/lost-found/claim', fetcher, { refreshInterval: 5000 });
+  const { data: itemsRaw, mutate: mutateItems } = useSWR<Item[]>('/api/lost-found', fetcher, { refreshInterval: 5000 });
+  const { data: claimsRaw, mutate: mutateClaims } = useSWR<ClaimRequest[]>('/api/lost-found/claim', fetcher, { refreshInterval: 5000 });
+
+  const items = Array.isArray(itemsRaw) ? itemsRaw : [];
+  const claims = Array.isArray(claimsRaw) ? claimsRaw : [];
 
   const [submitting, setSubmitting] = useState(false);
   const [showClaimModal, setShowClaimModal] = useState<Item | null>(null);

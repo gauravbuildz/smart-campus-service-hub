@@ -26,7 +26,8 @@ export default function StudentManagementPage() {
   const user = session?.user as any;
   const isAdmin = user?.role === 'ADMIN' || user?.email?.includes('admin') || user?.email === 'john@1234';
 
-  const { data: students = [], mutate } = useSWR<Student[]>('/api/students', fetcher);
+  const { data: studentsRaw, mutate } = useSWR<Student[]>('/api/students', fetcher);
+  const students = Array.isArray(studentsRaw) ? studentsRaw : [];
 
   // Search & Filter state
   const [search, setSearch] = useState('');

@@ -53,9 +53,10 @@ const SERVICE_NAMES = SERVICE_SERVICES.map(s => s.name);
 
 export default function ServiceRequestsPage() {
   const { data: session, status } = useSession();
-  const { data: issues = [], mutate: mutateIssues } = useSWR<ServiceRequest[]>('/api/issues', fetcher, {
+  const { data: issuesRaw, mutate: mutateIssues } = useSWR<ServiceRequest[]>('/api/issues', fetcher, {
     refreshInterval: 5000,
   });
+  const issues = Array.isArray(issuesRaw) ? issuesRaw : [];
 
   // UI State
   const [search, setSearch] = useState('');

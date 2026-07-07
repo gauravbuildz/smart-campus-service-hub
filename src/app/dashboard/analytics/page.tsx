@@ -29,8 +29,11 @@ export default function AnalyticsPage() {
   const user = session?.user as any;
   const isAdmin = user?.role === 'ADMIN' || user?.email?.includes('admin') || user?.email === 'john@1234';
 
-  const { data: notices = [] } = useSWR<Notice[]>('/api/notices', fetcher);
-  const { data: issues = [] } = useSWR<Issue[]>('/api/issues', fetcher);
+  const { data: noticesRaw } = useSWR<Notice[]>('/api/notices', fetcher);
+  const { data: issuesRaw } = useSWR<Issue[]>('/api/issues', fetcher);
+
+  const notices = Array.isArray(noticesRaw) ? noticesRaw : [];
+  const issues = Array.isArray(issuesRaw) ? issuesRaw : [];
 
   if (!isAdmin) {
     return (

@@ -37,9 +37,10 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function IssuesPage() {
   const { data: session, status } = useSession();
-  const { data: issues = [], mutate: mutateIssues } = useSWR<Issue[]>('/api/issues', fetcher, {
+  const { data: issuesRaw, mutate: mutateIssues } = useSWR<Issue[]>('/api/issues', fetcher, {
     refreshInterval: 5000,
   });
+  const issues = Array.isArray(issuesRaw) ? issuesRaw : [];
 
   const [submitting, setSubmitting] = useState(false);
 

@@ -54,9 +54,10 @@ const SUBCATEGORIES_MAP: Record<string, string[]> = {
 
 export default function ResourceHubPage() {
   const { data: session, status } = useSession();
-  const { data: notices = [], mutate: mutateNotices } = useSWR<Notice[]>('/api/notices', fetcher, {
+  const { data: noticesRaw, mutate: mutateNotices } = useSWR<Notice[]>('/api/notices', fetcher, {
     refreshInterval: 5000,
   });
+  const notices = Array.isArray(noticesRaw) ? noticesRaw : [];
 
   // UI State
   const [search, setSearch] = useState('');

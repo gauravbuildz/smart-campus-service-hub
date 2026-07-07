@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { redirect } from 'next/navigation';
 import LandingPageClient from "@/components/LandingPageClient";
 
 export const dynamic = 'force-dynamic';
@@ -9,12 +8,6 @@ export const revalidate = 0;
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-
-  if (session) {
-    const user = session.user as any;
-    const isAdmin = user?.role === 'ADMIN' || user?.email?.includes('admin') || user?.email === 'john@1234';
-    redirect(isAdmin ? '/admin/dashboard' : '/student/dashboard');
-  }
 
   return (
     <Suspense fallback={

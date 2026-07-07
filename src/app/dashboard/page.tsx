@@ -414,7 +414,7 @@ export default function DashboardPage() {
   const user = session?.user as any;
   const isAdmin = user?.role === 'ADMIN' || user?.email?.includes('admin') || user?.email === 'john@1234';
   const router = useRouter();
-  const { data: students = [], mutate: mutateStudents } = useSWR<any[]>('/api/students', fetcher, { refreshInterval: 5000 });
+  const { data: studentsRaw, mutate: mutateStudents } = useSWR<any[]>('/api/students', fetcher, { refreshInterval: 5000 });
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -424,10 +424,16 @@ export default function DashboardPage() {
   };
 
   // Real-Time Background Synchronization with SWR
-  const { data: notices = [], mutate: mutateNotices } = useSWR<Notice[]>('/api/notices', fetcher, { refreshInterval: 5000 });
-  const { data: issues = [], mutate: mutateIssues } = useSWR<Issue[]>('/api/issues', fetcher, { refreshInterval: 5000 });
-  const { data: lostItems = [], mutate: mutateLostItems } = useSWR<LostItem[]>('/api/lost-found', fetcher, { refreshInterval: 5000 });
-  const { data: claims = [], mutate: mutateClaims } = useSWR<ClaimRequest[]>('/api/lost-found/claim', fetcher, { refreshInterval: 5000 });
+  const { data: noticesRaw, mutate: mutateNotices } = useSWR<Notice[]>('/api/notices', fetcher, { refreshInterval: 5000 });
+  const { data: issuesRaw, mutate: mutateIssues } = useSWR<Issue[]>('/api/issues', fetcher, { refreshInterval: 5000 });
+  const { data: lostItemsRaw, mutate: mutateLostItems } = useSWR<LostItem[]>('/api/lost-found', fetcher, { refreshInterval: 5000 });
+  const { data: claimsRaw, mutate: mutateClaims } = useSWR<ClaimRequest[]>('/api/lost-found/claim', fetcher, { refreshInterval: 5000 });
+
+  const students = Array.isArray(studentsRaw) ? studentsRaw : [];
+  const notices = Array.isArray(noticesRaw) ? noticesRaw : [];
+  const issues = Array.isArray(issuesRaw) ? issuesRaw : [];
+  const lostItems = Array.isArray(lostItemsRaw) ? lostItemsRaw : [];
+  const claims = Array.isArray(claimsRaw) ? claimsRaw : [];
 
   // UI state
   const [activeTab, setActiveTab] = useState<'overview' | 'issues' | 'notices' | 'lost-found'>('overview');
