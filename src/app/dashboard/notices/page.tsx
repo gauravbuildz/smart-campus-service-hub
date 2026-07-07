@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import { toast } from '@/components/Toast';
 import { Megaphone, Trash2, Calendar, User, Inbox, PlusCircle, Pin, AlertCircle, X, Image as ImageIcon, Search } from 'lucide-react';
 import { UploadDropzone } from '@/lib/uploadthing';
+import { DashboardHero } from '@/components/DashboardHero';
 
 interface Notice {
   id: string;
@@ -135,10 +136,13 @@ export default function NoticesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Notices & Events Board</h2>
-        <p className="text-slate-500 text-sm font-medium">Stay informed with college announcements, seminars, and circulars.</p>
-      </div>
+      <DashboardHero
+        title="📢 Notices & Events Board"
+        description="Stay up to date with the latest campus announcements, official circulars, and student activities."
+        icon={Megaphone}
+        gradientClass="from-violet-600 via-purple-650 to-fuchsia-500"
+        pageType="notices"
+      />
 
       {/* Filters Toolbar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
@@ -192,7 +196,7 @@ export default function NoticesPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-1">CATEGORY</label>
                   <select
@@ -304,76 +308,92 @@ export default function NoticesPage() {
           </div>
         )}
 
-        {/* Notices Board Stream */}
         <div className="lg:col-span-2 space-y-4">
           {filteredNotices.length > 0 ? (
             <div className="grid grid-cols-1 gap-4">
               {filteredNotices.map((n) => (
                 <div
                   key={n.id}
-                  className={`bg-white p-6 rounded-2xl border flex flex-col justify-between relative group hover:shadow-md transition-all duration-200 ${
-                    n.isPinned ? 'border-cyan-300 ring-2 ring-cyan-500/5' : 'border-slate-200/85'
+                  className={`bg-white border rounded-[18px] p-5 shadow-sm hover:shadow-md hover:border-cyan-500/25 transition-all duration-300 relative group flex flex-col md:flex-row md:items-center justify-between gap-5 ${
+                    n.isPinned ? 'border-cyan-300 ring-4 ring-cyan-500/5' : 'border-slate-200/60'
                   }`}
                 >
                   {n.isPinned && (
-                    <div className="absolute top-0 right-0 bg-cyan-500 text-white px-3 py-1 rounded-bl-xl text-[9px] font-black tracking-wide inline-flex items-center gap-1 uppercase">
-                      Pinned <Pin className="w-3 h-3 rotate-45" />
+                    <div className="absolute top-3 right-3 bg-cyan-500 text-white px-2.5 py-0.5 rounded-full text-[8px] font-black tracking-wide inline-flex items-center gap-0.5 uppercase shadow-sm">
+                      Pinned <Pin className="w-2.5 h-2.5 rotate-45" />
                     </div>
                   )}
 
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0 ${
-                        n.category === 'EXAM' ? 'bg-rose-100 text-rose-800 border border-rose-200/40' :
-                        n.category === 'EVENT' ? 'bg-amber-100 text-amber-800 border border-amber-200/40' :
-                        n.category === 'CIRCULAR' ? 'bg-indigo-100 text-indigo-855 border border-indigo-200/40' :
-                        'bg-cyan-100 text-cyan-800 border border-cyan-200/40'
-                      }`}>
-                        {n.category}
-                      </span>
-                      <span className={`text-[8px] font-black px-2 py-0.5 rounded-md border ${
-                        n.priority === 'URGENT' ? 'bg-red-50 text-red-650 border-red-100 font-extrabold' :
-                        n.priority === 'HIGH' ? 'bg-orange-50 text-orange-650 border-orange-100' :
-                        n.priority === 'LOW' ? 'bg-slate-50 text-slate-600 border-slate-100' :
-                        'bg-cyan-50 text-cyan-600 border-cyan-100'
-                      }`}>
-                        PRIORITY: {n.priority}
-                      </span>
-                      <span className="text-[10px] text-slate-400 font-semibold flex items-center gap-1 shrink-0">
-                        <Calendar className="w-3.5 h-3.5 text-slate-350" />
-                        {new Date(n.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </span>
-                      {n.expiryDate && (
-                        <span className="text-[9px] font-bold text-slate-400">
-                          Expires: {new Date(n.expiryDate).toLocaleDateString()}
-                        </span>
+                  <div className="flex items-start gap-4 flex-1 min-w-0">
+                    {/* Left Icon or Thumbnail */}
+                    <div className="shrink-0">
+                      {n.attachmentUrl ? (
+                        <div className="w-16 h-16 rounded-xl border border-slate-200/60 overflow-hidden bg-slate-50">
+                          <img src={n.attachmentUrl} alt="attachment" className="object-cover w-full h-full" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-cyan-600">
+                          <Megaphone className="w-6 h-6 text-cyan-650" />
+                        </div>
                       )}
                     </div>
-                    <h3 className="text-base font-bold text-slate-800 mt-2 line-clamp-1 pr-16">{n.title}</h3>
-                    <p className="text-sm text-slate-650 mt-3 leading-relaxed whitespace-pre-wrap font-medium">{n.description}</p>
-                    
-                    {n.attachmentUrl && (
-                      <div className="h-44 w-full bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative mt-3">
-                        <img 
-                          src={n.attachmentUrl} 
-                          alt="Announcement attachment" 
-                          className="object-cover w-full h-full"
-                          onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                        />
+
+                    {/* Center Metadata and Typography */}
+                    <div className="space-y-1.5 flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className={`text-[9px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-md border ${
+                          n.category === 'EXAM' ? 'bg-rose-50 text-rose-700 border-rose-100' :
+                          n.category === 'EVENT' ? 'bg-amber-50 text-amber-700 border-amber-100' :
+                          n.category === 'CIRCULAR' ? 'bg-indigo-50 text-indigo-700 border-indigo-100' :
+                          'bg-cyan-50 text-cyan-700 border-cyan-100'
+                        }`}>
+                          {n.category}
+                        </span>
+                        <span className={`text-[8px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-md border ${
+                          n.priority === 'URGENT' ? 'bg-red-50 text-red-700 border-red-100 animate-pulse' :
+                          n.priority === 'HIGH' ? 'bg-orange-50 text-orange-700 border-orange-100' :
+                          n.priority === 'LOW' ? 'bg-slate-50 text-slate-600 border-slate-200' :
+                          'bg-blue-50 text-blue-700 border-blue-100'
+                        }`}>
+                          {n.priority}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-extrabold flex items-center gap-1 shrink-0">
+                          <Calendar className="w-3.5 h-3.5 text-slate-350" />
+                          {new Date(n.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </span>
+                        {n.expiryDate && (
+                          <span className="text-[9px] font-bold text-rose-500/80 bg-rose-50/50 px-2 py-0.5 rounded-md border border-rose-100/50">
+                            Expires: {new Date(n.expiryDate).toLocaleDateString()}
+                          </span>
+                        )}
+                        <span className="text-[10px] text-slate-400 font-extrabold shrink-0">
+                          By: <span className="text-slate-600 font-black">{n.author?.name || 'Admin'}</span>
+                        </span>
                       </div>
-                    )}
+                      
+                      <h3 className="text-sm font-black text-slate-800 leading-tight pr-12">{n.title}</h3>
+                      <p className="text-xs text-slate-500 font-semibold line-clamp-2 leading-relaxed whitespace-pre-wrap">{n.description}</p>
+                    </div>
                   </div>
 
-                  <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-450 font-semibold shrink-0">
-                    <span className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-slate-350" />
-                      Published by: <span className="text-slate-600 font-bold">{n.author?.name || 'Admin'}</span>
-                    </span>
-
+                  {/* Right Action buttons */}
+                  <div className="flex items-center gap-2 shrink-0 md:self-center">
+                    {n.attachmentUrl && (
+                      <a
+                        href={n.attachmentUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-1.5 px-3 rounded-lg border border-slate-200 hover:border-blue-400 text-[10px] font-black uppercase tracking-wider text-slate-600 hover:text-blue-600 bg-white shadow-sm flex items-center gap-1.5 cursor-pointer transition-all"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>View Attachment</span>
+                      </a>
+                    )}
+                    
                     {isAdmin && (
                       <button
                         onClick={() => handleDelete(n.id)}
-                        className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-500 text-rose-500 hover:text-white transition-all cursor-pointer shrink-0"
+                        className="p-2 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-500 text-rose-500 hover:text-white transition-all cursor-pointer shadow-sm"
                         title="Delete Announcement"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

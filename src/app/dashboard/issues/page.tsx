@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import { toast } from '@/components/Toast';
 import { AlertTriangle, Clock, Calendar, User, Inbox, ShieldAlert, Send, Image as ImageIcon, X, ChevronRight } from 'lucide-react';
 import { UploadDropzone } from '@/lib/uploadthing';
+import { DashboardHero } from '@/components/DashboardHero';
 
 interface StatusHistory {
   id: string;
@@ -129,7 +130,22 @@ export default function IssuesPage() {
     }
   };
 
+  const SERVICE_REQUEST_CATEGORIES = [
+    'ID Card Request',
+    'Bonafide Certificate',
+    'Hostel Request',
+    'Parking Pass',
+    'Leave Application',
+    'Library Card Request',
+    'Degree/Transcript Request'
+  ];
+
   const filteredIssues = issues.filter((i) => {
+    // Exclude Service Requests from the Complaints Hub feed
+    if (SERVICE_REQUEST_CATEGORIES.includes(i.category)) {
+      return false;
+    }
+
     const matchesSearch =
       i.title.toLowerCase().includes(search.toLowerCase()) ||
       i.description.toLowerCase().includes(search.toLowerCase());
@@ -142,10 +158,13 @@ export default function IssuesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Complaints & Issues Hub</h2>
-        <p className="text-slate-500 text-sm font-medium">Raise support tickets for campus amenities, WiFi, or hostel maintenance.</p>
-      </div>
+      <DashboardHero
+        title="🛠 Complaints Hub"
+        description="Report infrastructure, classroom, or hostel issues. Track status resolutions transparently in real-time."
+        icon={AlertTriangle}
+        gradientClass="from-rose-600 via-pink-650 to-orange-500"
+        pageType="complaints"
+      />
 
       {/* Filters Toolbar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
@@ -294,90 +313,102 @@ export default function IssuesPage() {
               {filteredIssues.map((issue) => (
                 <div
                   key={issue.id}
-                  className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between gap-4 hover:shadow-md transition-all duration-200"
+                  className="bg-white border border-slate-200/60 rounded-[18px] p-5 flex flex-col md:flex-row md:items-start justify-between gap-5 hover:shadow-md hover:border-blue-500/25 transition-all duration-300 relative group"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase shrink-0 ${
-                            issue.status === 'RESOLVED' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200/30' :
-                            issue.status === 'IN_PROGRESS' ? 'bg-amber-100 text-amber-800 border border-amber-200/30' :
-                            'bg-rose-100 text-rose-800 border border-rose-200/30'
-                          }`}>
-                            {issue.status}
-                          </span>
-                          <span className="text-[9px] text-slate-500 font-bold bg-slate-50 px-2.5 py-0.5 rounded-full border border-slate-200/60 shrink-0">
-                            {issue.category}
-                          </span>
-                          <span className={`text-[8px] font-black px-2 py-0.5 rounded-md ${
-                            issue.severity === 'HIGH' ? 'bg-rose-50 text-rose-600 border border-rose-100' :
-                            issue.severity === 'MEDIUM' ? 'bg-amber-50 text-amber-600 border border-amber-100' :
-                            'bg-cyan-50 text-cyan-600 border border-cyan-100'
-                          }`}>
-                            SEVERITY: {issue.severity}
-                          </span>
-                          <span className="text-[10px] text-slate-400 font-semibold flex items-center gap-1 shrink-0">
-                            <Calendar className="w-3.5 h-3.5 text-slate-350" />
-                            {new Date(issue.createdAt).toLocaleDateString()}
-                          </span>
+                  <div className="flex items-start gap-4 flex-1 min-w-0">
+                    {/* Left Icon or Thumbnail */}
+                    <div className="shrink-0">
+                      {issue.attachmentUrl ? (
+                        <div className="w-16 h-16 rounded-xl border border-slate-200/60 overflow-hidden bg-slate-50">
+                          <img src={issue.attachmentUrl} alt="attachment" className="object-cover w-full h-full" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
                         </div>
-                        <h3 className="text-base font-bold text-slate-800 mt-2">{issue.title}</h3>
-                      </div>
+                      ) : (
+                        <div className="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-rose-500">
+                          <AlertTriangle className="w-6 h-6 text-rose-650" />
+                        </div>
+                      )}
                     </div>
-                    
-                    <p className="text-xs text-slate-550 leading-relaxed font-medium whitespace-pre-wrap">{issue.description}</p>
-                    
-                    {issue.attachmentUrl && (
-                      <div className="h-44 w-72 bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative mt-2">
-                        <img 
-                          src={issue.attachmentUrl} 
-                          alt="Issue attachment" 
-                          className="object-cover w-full h-full"
-                          onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                        />
-                      </div>
-                    )}
 
-                    {isAdmin && issue.student && (
-                      <div className="pt-2 border-t border-slate-50 text-[10px] text-slate-400 font-semibold flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-slate-350" />
-                        Reported by: <span className="text-slate-600 font-bold">{issue.student.name} ({issue.student.email})</span>
+                    {/* Center Metadata and Typography */}
+                    <div className="space-y-1.5 flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className={`text-[9px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-md border ${
+                          issue.status === 'RESOLVED' ? 'bg-emerald-50 text-emerald-700 border-emerald-100' :
+                          issue.status === 'IN_PROGRESS' ? 'bg-amber-50 text-amber-700 border-amber-100' :
+                          'bg-rose-50 text-rose-700 border-rose-100'
+                        }`}>
+                          {issue.status}
+                        </span>
+                        <span className="text-[9px] text-slate-500 font-black uppercase tracking-wider bg-slate-50 border border-slate-200/60 px-2.5 py-0.5 rounded-md">
+                          {issue.category}
+                        </span>
+                        <span className={`text-[8px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-md border ${
+                          issue.severity === 'HIGH' ? 'bg-red-50 text-red-700 border-red-100 animate-pulse' :
+                          issue.severity === 'MEDIUM' ? 'bg-amber-50 text-amber-755 border-amber-105' :
+                          'bg-cyan-50 text-cyan-700 border-cyan-100'
+                        }`}>
+                          {issue.severity}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-extrabold flex items-center gap-1 shrink-0">
+                          <Calendar className="w-3.5 h-3.5 text-slate-350" />
+                          {new Date(issue.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </span>
+                        {isAdmin && issue.student && (
+                          <span className="text-[10px] text-slate-400 font-extrabold shrink-0">
+                            By: <span className="text-slate-600 font-black">{issue.student.name}</span>
+                          </span>
+                        )}
                       </div>
-                    )}
+                      
+                      <h3 className="text-sm font-black text-slate-800 leading-tight pr-12">{issue.title}</h3>
+                      <p className="text-xs text-slate-500 font-semibold leading-relaxed whitespace-pre-wrap">{issue.description}</p>
 
-                    {/* Timeline History log rendering */}
-                    {issue.history && issue.history.length > 0 && (
-                      <div className="border-t border-slate-100 pt-3 space-y-2">
-                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-wide">Status history timeline</span>
-                        <div className="space-y-1.5">
-                          {issue.history.map((h) => (
-                            <div key={h.id} className="text-[10px] text-slate-500 flex items-start gap-2 leading-relaxed">
-                              <Clock className="w-3.5 h-3.5 text-slate-350 shrink-0 mt-0.5" />
-                              <div className="min-w-0">
-                                <span className="font-extrabold text-slate-700">[{h.status}]</span> {h.comment || 'Updated.'}{' '}
-                                <span className="text-[9px] text-slate-400 font-medium">by {h.updatedBy} ({new Date(h.createdAt).toLocaleDateString()})</span>
+                      {/* Timeline History log rendering */}
+                      {issue.history && issue.history.length > 0 && (
+                        <div className="border-t border-slate-100 pt-3 space-y-1.5 mt-3">
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider block">Status history timeline</span>
+                          <div className="space-y-1.5">
+                            {issue.history.map((h) => (
+                              <div key={h.id} className="text-[10px] text-slate-500 flex items-start gap-2 leading-relaxed">
+                                <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+                                <div className="min-w-0 font-semibold">
+                                  <span className="font-extrabold text-slate-755">[{h.status}]</span> {h.comment || 'Updated.'}{' '}
+                                  <span className="text-[9px] text-slate-400 font-medium">by {h.updatedBy} ({new Date(h.createdAt).toLocaleDateString()})</span>
+                                </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
-                  {isAdmin && (
-                    <div className="flex gap-2 justify-end border-t border-slate-50 pt-3 shrink-0">
+                  {/* Right Action buttons */}
+                  <div className="flex items-center gap-2 shrink-0 md:self-start mt-2 md:mt-0">
+                    {issue.attachmentUrl && (
+                      <a
+                        href={issue.attachmentUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="py-1.5 px-3 rounded-lg border border-slate-200 hover:border-blue-400 text-[10px] font-black uppercase tracking-wider text-slate-600 hover:text-blue-600 bg-white shadow-sm flex items-center gap-1.5 cursor-pointer transition-all"
+                      >
+                        <ImageIcon className="w-3.5 h-3.5" />
+                        <span>View File</span>
+                      </a>
+                    )}
+                    
+                    {isAdmin && (
                       <button
                         onClick={() => {
                           setStatusForm({ status: issue.status, severity: issue.severity, comment: '' });
                           setShowStatusModal(issue);
                         }}
-                        className="px-3.5 py-1.5 rounded-xl border border-slate-200 hover:border-slate-300 text-[10px] font-bold text-slate-700 bg-white transition-all cursor-pointer inline-flex items-center gap-1"
+                        className="py-1.5 px-3 rounded-lg border border-slate-200 hover:border-slate-350 text-[10px] font-black uppercase tracking-wider text-slate-700 bg-white hover:bg-slate-50 transition-all cursor-pointer inline-flex items-center gap-1 shadow-sm"
                       >
-                        Manage Status <ChevronRight className="w-3.5 h-3.5" />
+                        Action <ChevronRight className="w-3.5 h-3.5" />
                       </button>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -403,7 +434,7 @@ export default function IssuesPage() {
             <form onSubmit={handleUpdateStatus} className="space-y-4">
               <p className="text-xs font-bold text-slate-700">Complaint: {showStatusModal.title}</p>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-extrabold text-slate-500 uppercase">Resolution Status</label>
                   <select

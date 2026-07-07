@@ -1,0 +1,15 @@
+- `[x]` Restore original 100vh static landing page wrapper structure
+- `[x]` Restore original Hero, About, and Contact popup modals
+- `[x]` Revert header navbar and footer configurations to original style
+- `[x]` Update Features popup modal grid with exactly the 5 specified feature cards
+- `[x]` Update About popup modal with Smart Campus Management System details & checkmarks
+- `[x]` Update About Team dev footer details with improved campus communication mission info
+- `[x]` Update Help Center (FAQ accordion) in Contact modal with the 10 help topics
+- `[x]` Collapsed sidebar into mobile drawer under `lg` breakpoint for tablets/mobile
+- `[x]` Adjusted statistic grid classes to wrap 1-cols (mobile), 2-cols (tablet), 4-cols (desktop)
+- `[x]` Converted multi-column form grids inside modal popups to stack on mobile
+- `[x]` Swapped out hardcoded welcome banner IT department metadata to check roles dynamically
+- `[x]` Verified all lists, statistics, charts, counters and SWR mutates are 100% database-driven
+- `[x]` Hardened authentication routing by implementing official server-side Next.js middleware at `src/middleware.ts`
+- `[x]` Completed full system Quality Audit verification and build checks
+- `[x]` Verify compilation with `npx tsc --noEmit`

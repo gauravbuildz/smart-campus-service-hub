@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import { toast } from '@/components/Toast';
 import { Search, MapPin, Calendar, User, Trash2, Inbox, PlusCircle, AlertCircle, HelpCircle, Tag, Image as ImageIcon, X, Check, ShieldAlert } from 'lucide-react';
 import { UploadDropzone } from '@/lib/uploadthing';
+import { DashboardHero } from '@/components/DashboardHero';
 
 interface Item {
   id: string;
@@ -213,10 +214,13 @@ export default function LostFoundPage() {
 
   return (
     <div className="space-y-6 text-left">
-      <div>
-        <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">Lost & Found Hub</h2>
-        <p className="text-slate-500 text-sm font-medium">Post things you lost or found on campus and help fellow students claim their items.</p>
-      </div>
+      <DashboardHero
+        title="🎒 Lost & Found Desk"
+        description="Lost something or found someone's asset? Report items, match claims, and reclaim lost properties."
+        icon={Search}
+        gradientClass="from-amber-600 via-orange-600 to-yellow-500"
+        pageType="lost-found"
+      />
 
       {/* Global Gallery Filters */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
@@ -317,7 +321,7 @@ export default function LostFoundPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-slate-500 mb-1">REPORT TYPE</label>
                   <div className="grid grid-cols-2 gap-2">
@@ -440,75 +444,78 @@ export default function LostFoundPage() {
         <div className="lg:col-span-2">
           {adminSubTab === 'listings' ? (
             filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-4">
                 {filteredItems.map((item) => {
                   const canDelete = isAdmin || item.reporterId === currentUser?.id;
                   const showClaimButton = !isAdmin && item.type === 'FOUND' && item.status !== 'CLAIMED';
                   return (
                     <div
                       key={item.id}
-                      className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between h-[320px] relative group hover:shadow-md transition-all duration-200"
+                      className="bg-white border border-slate-200/60 rounded-[18px] p-5 flex flex-col md:flex-row md:items-center justify-between gap-5 hover:shadow-md hover:border-blue-500/25 transition-all duration-300 relative group"
                     >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between gap-3">
-                          <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full shrink-0 ${
-                            item.type === 'LOST'
-                              ? 'bg-rose-100 text-rose-800 border border-rose-200/40'
-                              : 'bg-emerald-100 text-emerald-800 border border-emerald-200/40'
-                          }`}>
-                            {item.type}
-                          </span>
-                          <div className="flex items-center gap-1.5 shrink-0">
-                            <span className="text-[9px] font-bold text-slate-400 bg-slate-100 border border-slate-200/50 px-2 py-0.5 rounded-md">
+                      <div className="flex items-start gap-4 flex-1 min-w-0">
+                        {/* Left Thumbnail or Icon */}
+                        <div className="shrink-0">
+                          {item.imageUrl ? (
+                            <div className="w-16 h-16 rounded-xl border border-slate-200/60 overflow-hidden bg-slate-50">
+                              <img src={item.imageUrl} alt={item.itemName} className="object-cover w-full h-full" onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }} />
+                            </div>
+                          ) : (
+                            <div className="w-16 h-16 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-amber-500">
+                              <Tag className="w-6 h-6 text-amber-650" />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Center Metadata and Typography */}
+                        <div className="space-y-1.5 flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className={`text-[9px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-md border ${
+                              item.type === 'LOST'
+                                ? 'bg-rose-50 text-rose-700 border-rose-100'
+                                : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                            }`}>
+                              {item.type}
+                            </span>
+                            <span className="text-[9px] font-black tracking-wider uppercase text-blue-700 bg-blue-50/50 border border-blue-100/50 px-2 py-0.5 rounded-md">
                               {item.category}
                             </span>
-                            <span className="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span className="text-[10px] text-slate-500 flex items-center gap-1 font-extrabold truncate">
+                              <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                              Location: <span className="text-slate-700 font-black">{item.location}</span>
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-extrabold flex items-center gap-1">
                               <Calendar className="w-3.5 h-3.5 text-slate-350" />
-                              {new Date(item.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                              {new Date(item.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                            </span>
+                            <span className="text-[9px] text-slate-400 flex items-center gap-1 font-extrabold">
+                              <User className="w-3 h-3 text-slate-400 shrink-0" />
+                              By: <span className="text-slate-655 font-black truncate">{item.reporter?.name || 'Student'}</span>
                             </span>
                           </div>
+
+                          <h3 className="text-sm font-black text-slate-800 leading-tight">{item.itemName}</h3>
+                          <p className="text-xs text-slate-500 font-semibold line-clamp-2 leading-relaxed">{item.description}</p>
                         </div>
-                        <h3 className="text-sm font-bold text-slate-800 mt-2 line-clamp-1">{item.itemName}</h3>
-                        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-medium">{item.description}</p>
-                        
-                        {item.imageUrl && (
-                          <div className="h-28 w-full bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative">
-                            <img 
-                              src={item.imageUrl} 
-                              alt={item.itemName} 
-                              className="object-cover w-full h-full"
-                              onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                            />
-                          </div>
-                        )}
                       </div>
 
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <div className="min-w-0 flex-1">
-                          <span className="text-[10px] text-slate-500 flex items-center gap-1 truncate font-semibold">
-                            <MapPin className="w-3.5 h-3.5 text-slate-350 shrink-0" />
-                            Location: <span className="text-slate-700 font-bold truncate">{item.location}</span>
-                          </span>
-                          <span className="text-[9px] text-slate-400 flex items-center gap-1 truncate font-semibold mt-0.5">
-                            <User className="w-3 h-3 text-slate-350 shrink-0" />
-                            Reported by: <span className="text-slate-650 font-bold truncate">{item.reporter?.name || 'Student'}</span>
-                          </span>
-                        </div>
+                      {/* Right Action buttons */}
+                      <div className="flex items-center gap-2 shrink-0 md:self-center">
                         {showClaimButton && (
                           <button
                             onClick={() => {
                               setClaimForm({ proof: '', imageUrl: '' });
                               setShowClaimModal(item);
                             }}
-                            className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold cursor-pointer transition-all"
+                            className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-[10px] font-black uppercase tracking-wider text-white shadow-md shadow-emerald-500/10 hover:shadow-lg cursor-pointer transition-all"
                           >
-                            Claim Item
+                            Claim
                           </button>
                         )}
                         {canDelete && (
                           <button
                             onClick={() => handleDelete(item.id)}
-                            className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-500 text-rose-500 hover:text-white transition-all cursor-pointer shrink-0"
+                            className="p-2 rounded-lg bg-rose-50 border border-rose-100 hover:bg-rose-500 text-rose-500 hover:text-white transition-all cursor-pointer shadow-sm"
                             title="Delete Listing"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

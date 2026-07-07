@@ -3,11 +3,14 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
+import { useRouter } from 'next/navigation';
 import { 
   Megaphone, AlertCircle, HelpCircle, MapPin, Calendar, ArrowRight, Inbox, 
-  Plus, Pin, Shield, CheckCircle, Clock, Trash2, Tag, FileText, Send, User, ChevronRight, X, Image as ImageIcon
+  Plus, Pin, Shield, CheckCircle, Clock, Trash2, Tag, FileText, Send, User, ChevronRight, X, Image as ImageIcon,
+  FolderOpen, ClipboardList, Bell, AlertTriangle, Search, Activity, Home
 } from 'lucide-react';
 import { UploadDropzone } from '@/lib/uploadthing';
+import { DashboardHero } from '@/components/DashboardHero';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -71,10 +74,354 @@ interface ClaimRequest {
   requester: { name: string; email: string };
 }
 
+
+interface StudentOverviewProps {
+  totalNotices: number;
+  pendingCount: number;
+  progressCount: number;
+  resolvedCount: number;
+  totalComplaints: number;
+  activeClaims: number;
+  categoryCounts: any;
+  notices: any[];
+  issues: any[];
+  lostItems: any[];
+  claims: any[];
+  setActiveTab: (tab: any) => void;
+  isAdmin: boolean;
+  handleApproveClaim: (claimId: string) => void;
+  handleRejectClaim: (claimId: string) => void;
+  user: any;
+  getGreeting: () => string;
+}
+
+function StudentOverview({
+  totalNotices,
+  pendingCount,
+  progressCount,
+  resolvedCount,
+  totalComplaints,
+  activeClaims,
+  categoryCounts,
+  notices,
+  issues,
+  lostItems,
+  claims,
+  setActiveTab,
+  isAdmin,
+  handleApproveClaim,
+  handleRejectClaim,
+  user,
+  getGreeting
+}: StudentOverviewProps) {
+  const router = useRouter();
+  return (
+    <div className="space-y-8 animate-in fade-in duration-300">
+      {/* 1. Welcome Banner */}
+      <DashboardHero
+        title={`👋 ${getGreeting()}, ${user?.name || 'Student'}`}
+        description="Welcome back to your Smart Campus Service Hub. View notifications, track complaints, or apply for service certificates."
+        icon={Home}
+        gradientClass="from-blue-600 via-indigo-650 to-cyan-500"
+        pageType="overview"
+        metadata={
+          <>
+            <p className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              {isAdmin ? 'System Administration & Operations' : 'Information Technology Department'}
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              Student ID: <span className="text-white font-extrabold">STU-{user?.id?.slice(0, 6).toUpperCase()}</span>
+            </p>
+          </>
+        }
+      />
+
+      {/* 2. Live Statistics */}
+      <div className="space-y-3">
+        <span className="text-[10px] font-black text-slate-800 tracking-wider uppercase">Your Dashboard Statistics</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+            <span className="text-xs font-semibold text-slate-400">Total Notices</span>
+            <h3 className="text-2xl font-black text-slate-800 mt-1">{totalNotices}</h3>
+            <div className="absolute right-4 bottom-4 p-2 bg-cyan-50 text-cyan-600 rounded-xl">
+              <Bell className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+            <span className="text-xs font-semibold text-slate-400">Active Complaints</span>
+            <h3 className="text-2xl font-black text-slate-800 mt-1">{pendingCount + progressCount}</h3>
+            <div className="absolute right-4 bottom-4 p-2 bg-rose-50 text-rose-605 rounded-xl">
+              <AlertCircle className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+            <span className="text-xs font-semibold text-slate-400">Resolved Rate</span>
+            <h3 className="text-2xl font-black text-slate-800 mt-1">
+              {totalComplaints > 0 ? `${Math.round((resolvedCount / totalComplaints) * 100)}%` : '0%'}
+            </h3>
+            <div className="absolute right-4 bottom-4 p-2 bg-emerald-50 text-emerald-600 rounded-xl">
+              <CheckCircle className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="bg-white border border-slate-200/60 p-5 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300">
+            <span className="text-xs font-semibold text-slate-400">Pending Requests</span>
+            <h3 className="text-2xl font-black text-slate-800 mt-1">
+              {(() => {
+                const SERVICE_REQUEST_CATEGORIES = [
+                  'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                  'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                ];
+                return issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category) && i.status === 'PENDING').length;
+              })()}
+            </h3>
+            <div className="absolute right-4 bottom-4 p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+              <ClipboardList className="w-5 h-5" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* 3. Quick Actions */}
+      <div className="space-y-3">
+        <span className="text-[10px] font-black text-slate-800 tracking-wider uppercase">Quick Actions</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <button
+            onClick={() => router.push('/dashboard/issues')}
+            className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-rose-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:bg-rose-600 group-hover:text-white transition-all">
+              <AlertCircle className="w-4 h-4" />
+            </div>
+            <h4 className="text-xs font-black text-slate-800">Submit Complaint</h4>
+            <p className="text-[10px] text-slate-400 font-semibold mt-1">Report a new issue on campus.</p>
+          </button>
+
+          <button
+            onClick={() => router.push('/dashboard/lost-found')}
+            className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-amber-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center mb-3 group-hover:bg-amber-600 group-hover:text-white transition-all">
+              <Search className="w-4 h-4" />
+            </div>
+            <h4 className="text-xs font-black text-slate-800">Report Lost/Found</h4>
+            <p className="text-[10px] text-slate-400 font-semibold mt-1">Search or declare items.</p>
+          </button>
+
+          <button
+            onClick={() => router.push('/dashboard/requests')}
+            className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-emerald-500/25 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+              <ClipboardList className="w-4 h-4" />
+            </div>
+            <h4 className="text-xs font-black text-slate-800">Request Services</h4>
+            <p className="text-[10px] text-slate-400 font-semibold mt-1">Apply for ID cards, forms, etc.</p>
+          </button>
+
+          <button
+            onClick={() => router.push('/dashboard/resources')}
+            className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-indigo-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+              <FolderOpen className="w-4 h-4" />
+            </div>
+            <h4 className="text-xs font-black text-slate-800">Resource Hub</h4>
+            <p className="text-[10px] text-slate-400 font-semibold mt-1">Download forms & resources.</p>
+          </button>
+
+        </div>
+      </div>
+
+      {/* 4. Student Feeds Section */}
+      <div className="space-y-6">
+        
+        {/* 4.1. Recent Notices */}
+        <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+          <div className="flex justify-between items-center shrink-0">
+            <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" /> Recent Notices & Events
+            </span>
+            <button onClick={() => router.push('/dashboard/notices')} className="text-[10px] text-cyan-600 font-extrabold hover:underline">View All Board</button>
+          </div>
+          <div className="space-y-2.5">
+            {(() => {
+              const plainNotices = notices.filter((n: any) => !['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category));
+              return plainNotices.slice(0, 3).length > 0 ? (
+                plainNotices.slice(0, 3).map((n: any) => (
+                  <div key={n.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl hover:bg-slate-100/50 transition-colors">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[8px] font-black uppercase text-indigo-700 bg-indigo-50 border border-indigo-100 px-1.5 py-0.5 rounded-md">{n.category}</span>
+                      <span className="text-[9px] text-slate-400 font-extrabold">{new Date(n.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <p className="text-xs font-black text-slate-800 truncate">{n.title}</p>
+                    <p className="text-[10.5px] text-slate-500 font-semibold line-clamp-1 leading-relaxed mt-0.5">{n.description}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-slate-400 text-center py-4 font-semibold">No announcements published.</p>
+              );
+            })()}
+          </div>
+        </div>
+
+        {/* 4.2. Recent Complaints */}
+        <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+          <div className="flex justify-between items-center shrink-0">
+            <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" /> Your Recent Complaints
+            </span>
+            <button onClick={() => router.push('/dashboard/issues')} className="text-[10px] text-rose-600 font-extrabold hover:underline">Track Complaints</button>
+          </div>
+          <div className="space-y-2.5">
+            {(() => {
+              const SERVICE_REQUEST_CATEGORIES = [
+                'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+              ];
+              const studentComplaints = issues.filter((i: any) => !SERVICE_REQUEST_CATEGORIES.includes(i.category));
+              return studentComplaints.slice(0, 3).length > 0 ? (
+                studentComplaints.slice(0, 3).map((i: any) => (
+                  <div key={i.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                    <div className="min-w-0 flex-1 pr-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[8px] font-black uppercase text-rose-700 bg-rose-50 border border-rose-100 px-1.5 py-0.5 rounded-md">{i.category}</span>
+                        <span className="text-[8px] font-black uppercase text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md">{i.status}</span>
+                        <span className="text-[9px] text-slate-400 font-extrabold">{new Date(i.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <p className="text-xs font-black text-slate-800 mt-1 truncate">{i.title}</p>
+                    </div>
+                    <button onClick={() => router.push('/dashboard/issues')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-rose-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-slate-400 text-center py-4 font-semibold">No complaints raised.</p>
+              );
+            })()}
+          </div>
+        </div>
+
+        {/* 4.3. Recent Lost & Found */}
+        <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+          <div className="flex justify-between items-center shrink-0">
+            <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" /> Recent Lost & Found reports
+            </span>
+            <button onClick={() => router.push('/dashboard/lost-found')} className="text-[10px] text-amber-600 font-extrabold hover:underline">View Desk</button>
+          </div>
+          <div className="space-y-2.5">
+            {lostItems.slice(0, 3).length > 0 ? (
+              lostItems.slice(0, 3).map((l: any) => (
+                <div key={l.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                  <div className="min-w-0 flex-1 pr-4">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md ${l.type === 'LOST' ? 'bg-rose-50 text-rose-700 border border-rose-100' : 'bg-emerald-50 text-emerald-700 border border-emerald-100'}`}>{l.type}</span>
+                      <span className="text-[8px] font-black uppercase text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md">{l.category}</span>
+                      <span className="text-[9px] text-slate-400 font-extrabold">{new Date(l.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <p className="text-xs font-black text-slate-800 mt-1 truncate">{l.itemName}</p>
+                  </div>
+                  <button onClick={() => router.push('/dashboard/lost-found')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-amber-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
+                </div>
+              ))
+            ) : (
+              <p className="text-xs text-slate-400 text-center py-4 font-semibold">No items declared.</p>
+            )}
+          </div>
+        </div>
+
+        {/* 4.4. Recent Service Requests */}
+        <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+          <div className="flex justify-between items-center shrink-0">
+            <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" /> Your Service Requests
+            </span>
+            <button onClick={() => router.push('/dashboard/requests')} className="text-[10px] text-emerald-600 font-extrabold hover:underline">Track Requests</button>
+          </div>
+          <div className="space-y-2.5">
+            {(() => {
+              const SERVICE_REQUEST_CATEGORIES = [
+                'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+              ];
+              const studentRequests = issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category));
+              return studentRequests.slice(0, 3).length > 0 ? (
+                studentRequests.slice(0, 3).map((r: any) => (
+                  <div key={r.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                    <div className="min-w-0 flex-1 pr-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[8px] font-black uppercase text-blue-700 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-md">{r.category}</span>
+                        <span className="text-[8px] font-black uppercase text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded-md">{r.status}</span>
+                        <span className="text-[9px] text-slate-400 font-extrabold">{new Date(r.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <p className="text-xs font-black text-slate-800 mt-1 truncate">{r.title}</p>
+                    </div>
+                    <button onClick={() => router.push('/dashboard/requests')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-blue-600 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-slate-400 text-center py-4 font-semibold">No service requests submitted.</p>
+              );
+            })()}
+          </div>
+        </div>
+
+        {/* 4.5. Recently Added Resources */}
+        <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+          <div className="flex justify-between items-center shrink-0">
+            <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" /> Recently Added Resources
+            </span>
+            <button onClick={() => router.push('/dashboard/resources')} className="text-[10px] text-indigo-600 font-extrabold hover:underline">View Resources</button>
+          </div>
+          <div className="space-y-2.5">
+            {(() => {
+              const resources = notices.filter((n: any) => ['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category));
+              return resources.slice(0, 3).length > 0 ? (
+                resources.slice(0, 3).map((r: any) => (
+                  <div key={r.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                    <div className="min-w-0 flex-1 pr-4">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[8px] font-black uppercase text-blue-700 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-md">{r.category}</span>
+                        <span className="text-[9px] text-slate-400 font-extrabold">{new Date(r.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <p className="text-xs font-black text-slate-800 mt-1 truncate">{r.title}</p>
+                    </div>
+                    <button onClick={() => router.push('/dashboard/resources')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-indigo-650 bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">Get</button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-xs text-slate-400 text-center py-4 font-semibold">No resources available.</p>
+              );
+            })()}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 export default function DashboardPage() {
   const { data: session, status } = useSession();
   const user = session?.user as any;
   const isAdmin = user?.role === 'ADMIN' || user?.email?.includes('admin') || user?.email === 'john@1234';
+  const router = useRouter();
+  const { data: students = [], mutate: mutateStudents } = useSWR<any[]>('/api/students', fetcher, { refreshInterval: 5000 });
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 18) return 'Good Afternoon';
+    return 'Good Evening';
+  };
 
   // Real-Time Background Synchronization with SWR
   const { data: notices = [], mutate: mutateNotices } = useSWR<Notice[]>('/api/notices', fetcher, { refreshInterval: 5000 });
@@ -292,291 +639,500 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Tab Navigation header */}
-      <div className="border-b border-slate-200 shrink-0">
-        <div className="flex space-x-6">
-          <button
-            onClick={() => setActiveTab('overview')}
-            className={`pb-4 text-sm font-bold border-b-2 transition-all cursor-pointer ${
-              activeTab === 'overview' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            Dashboard Overview
-          </button>
-          <button
-            onClick={() => setActiveTab('issues')}
-            className={`pb-4 text-sm font-bold border-b-2 transition-all cursor-pointer ${
-              activeTab === 'issues' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            Complaints & Issues
-          </button>
-          <button
-            onClick={() => setActiveTab('notices')}
-            className={`pb-4 text-sm font-bold border-b-2 transition-all cursor-pointer ${
-              activeTab === 'notices' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            Announcements Board
-          </button>
-          <button
-            onClick={() => setActiveTab('lost-found')}
-            className={`pb-4 text-sm font-bold border-b-2 transition-all cursor-pointer ${
-              activeTab === 'lost-found' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-slate-500 hover:text-slate-700'
-            }`}
-          >
-            Lost & Found Desk
-          </button>
-        </div>
-      </div>
-
       {/* RENDER ACTIVE TAB */}
 
       {/* 1. OVERVIEW TAB */}
       {activeTab === 'overview' && (
-        <div className="space-y-6">
-          {/* Header */}
-          <div className="flex justify-between items-center">
-            <div>
-              <h2 className="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-                {isAdmin && <Shield className="w-5 h-5 text-emerald-500" />}
-                {isAdmin ? 'Administrator Analytics Hub' : 'Student Dashboard'}
-              </h2>
-              <p className="text-xs text-slate-500 font-medium">Real-time status indicators and metrics.</p>
-            </div>
-          </div>
-
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm relative overflow-hidden group">
-              <span className="text-xs font-semibold text-slate-400">Total Notices</span>
-              <h3 className="text-2xl font-extrabold text-slate-900 mt-1">{totalNotices}</h3>
-              <div className="absolute right-4 bottom-4 p-2 bg-cyan-50 text-cyan-600 rounded-xl">
-                <Megaphone className="w-5 h-5" />
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm relative overflow-hidden group">
-              <span className="text-xs font-semibold text-slate-400">Active Complaints</span>
-              <h3 className="text-2xl font-extrabold text-slate-900 mt-1">{pendingCount + progressCount}</h3>
-              <div className="absolute right-4 bottom-4 p-2 bg-rose-50 text-rose-600 rounded-xl">
-                <AlertCircle className="w-5 h-5" />
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm relative overflow-hidden group">
-              <span className="text-xs font-semibold text-slate-400">Resolved Rate</span>
-              <h3 className="text-2xl font-extrabold text-slate-900 mt-1">
-                {totalComplaints > 0 ? `${Math.round((resolvedCount / totalComplaints) * 100)}%` : '0%'}
-              </h3>
-              <div className="absolute right-4 bottom-4 p-2 bg-emerald-50 text-emerald-600 rounded-xl">
-                <CheckCircle className="w-5 h-5" />
-              </div>
-            </div>
-
-            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-sm relative overflow-hidden group">
-              <span className="text-xs font-semibold text-slate-400">Pending Claim Requests</span>
-              <h3 className="text-2xl font-extrabold text-slate-900 mt-1">{activeClaims}</h3>
-              <div className="absolute right-4 bottom-4 p-2 bg-amber-50 text-amber-600 rounded-xl">
-                <HelpCircle className="w-5 h-5" />
-              </div>
-            </div>
-          </div>
-
-          {/* Admin Visual Charts Grid */}
-          {isAdmin && (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Complaints Status Chart (SVG Ring) */}
-              <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm flex flex-col justify-between">
-                <h4 className="text-xs font-black text-slate-800 tracking-wider uppercase mb-4">Complaints Status Distribution</h4>
-                <div className="flex items-center justify-center h-40">
-                  <svg className="w-36 h-36" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f1f5f9" strokeWidth="4" />
-                    
-                    {totalComplaints > 0 ? (
-                      <>
-                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="#ef4444" strokeWidth="4.2" 
-                          strokeDasharray={`${(pendingCount / totalComplaints) * 100} ${100 - (pendingCount / totalComplaints) * 100}`} 
-                          strokeDashoffset="25" />
-                        
-                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="#f59e0b" strokeWidth="4.2" 
-                          strokeDasharray={`${(progressCount / totalComplaints) * 100} ${100 - (progressCount / totalComplaints) * 100}`} 
-                          strokeDashoffset={25 - ((pendingCount / totalComplaints) * 100)} />
-
-                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="#10b981" strokeWidth="4.2" 
-                          strokeDasharray={`${(resolvedCount / totalComplaints) * 100} ${100 - (resolvedCount / totalComplaints) * 100}`} 
-                          strokeDashoffset={25 - ((pendingCount / totalComplaints) * 100) - ((progressCount / totalComplaints) * 100)} />
-                      </>
-                    ) : (
-                      <circle cx="18" cy="18" r="15.915" fill="none" stroke="#e2e8f0" strokeWidth="4" />
-                    )}
-                  </svg>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-center text-[10px] mt-4 border-t border-slate-50 pt-3">
-                  <div className="flex flex-col">
-                    <span className="text-rose-500 font-extrabold">● PENDING</span>
-                    <span className="text-slate-800 font-bold mt-0.5">{pendingCount}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-amber-500 font-extrabold">● IN PROGRESS</span>
-                    <span className="text-slate-800 font-bold mt-0.5">{progressCount}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-emerald-500 font-extrabold">● RESOLVED</span>
-                    <span className="text-slate-800 font-bold mt-0.5">{resolvedCount}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Complaints Categories Bar Chart (SVG Bars) */}
-              <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm flex flex-col justify-between col-span-2">
-                <h4 className="text-xs font-black text-slate-800 tracking-wider uppercase mb-4">Complaints by Category (Departmental)</h4>
-                <div className="flex-1 flex flex-col justify-center gap-4">
-                  {['HOSTEL', 'WIFI', 'CLASSROOM', 'OTHER'].map((cat) => {
-                    const count = categoryCounts[cat] || 0;
-                    const pct = totalComplaints > 0 ? (count / totalComplaints) * 100 : 0;
-                    return (
-                      <div key={cat} className="space-y-1">
-                        <div className="flex justify-between text-xs font-bold text-slate-600">
-                          <span>{cat}</span>
-                          <span>{count} issues ({Math.round(pct)}%)</span>
-                        </div>
-                        <div className="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 transition-all duration-1000"
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Feed Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Notices feed */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[400px]">
-              <div className="flex justify-between items-center mb-4 shrink-0">
-                <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-500" /> Announcements board
+        isAdmin ? (
+          <div className="space-y-8 animate-in fade-in duration-300">
+            {/* Section 1: Welcome Banner */}
+            <DashboardHero
+              title={`👋 ${getGreeting()}, ${user?.name || 'Administrator'}`}
+              description="Manage your campus operations, monitor student activities and oversee all campus services from one place."
+              icon={Shield}
+              gradientClass="from-slate-900 via-indigo-950 to-blue-900"
+              pageType="overview"
+              extraHeader={
+                <span className="inline-flex items-center gap-1 bg-white/10 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-md border border-white/5">
+                  <Shield className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                  Administrator Portal
                 </span>
-                <button onClick={() => setActiveTab('notices')} className="text-[10px] text-cyan-600 font-extrabold hover:underline">View all</button>
-              </div>
-              <div className="flex-1 overflow-y-auto space-y-3">
-                {notices.map((n) => (
-                  <div key={n.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200/50 flex items-start gap-3 hover:bg-white hover:shadow-sm hover:border-cyan-200/50 transition-all">
-                    <Megaphone className="w-5 h-5 text-cyan-500 shrink-0 mt-0.5" />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="text-xs font-black text-slate-800 line-clamp-1 flex items-center gap-1">
-                          {n.title}
-                          {n.isPinned && <Pin className="w-3.5 h-3.5 text-rose-500 rotate-45 shrink-0" />}
-                        </p>
-                        <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 uppercase shrink-0">{n.category}</span>
-                      </div>
-                      <p className="text-[11px] text-slate-500 leading-relaxed mt-1 line-clamp-2">{n.description}</p>
-                    </div>
+              }
+              metadata={
+                <>
+                  <p className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    Campus Ops & Management
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    System Staff ID: <span className="text-white font-extrabold">ADM-{user?.id?.slice(0, 6).toUpperCase()}</span>
+                  </p>
+                </>
+              }
+            />
+
+            {/* Section 2: Live Statistics Grid */}
+            <div className="space-y-3">
+              <span className="text-[10px] font-black text-slate-800 tracking-wider uppercase">Live Operations Statistics</span>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                
+                {/* Total Students */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-blue-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Students</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">{students.filter((s: any) => s.role === 'STUDENT').length}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
+                    <User className="w-3.5 h-3.5" />
                   </div>
-                ))}
+                </div>
+
+                {/* Active Notices */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-cyan-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Notices</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">{totalNotices - notices.filter((n: any) => ['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category)).length}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-cyan-50 group-hover:text-cyan-600 transition-colors">
+                    <Bell className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Pending Complaints */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-rose-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Pending Issues</span>
+                  <h3 className="text-lg font-black text-slate-805 mt-1">{pendingCount}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-rose-50 group-hover:text-rose-600 transition-colors">
+                    <AlertTriangle className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Lost & Found Cases */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-amber-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">L&F Cases</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">{lostItems.length}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors">
+                    <Search className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Resources */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-indigo-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Resources</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">{notices.filter((n: any) => ['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category)).length}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-colors">
+                    <FolderOpen className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Pending Requests */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-emerald-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Pending Req.</span>
+                  <h3 className="text-lg font-black text-slate-805 mt-1">
+                    {(() => {
+                      const SERVICE_REQUEST_CATEGORIES = [
+                        'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                        'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                      ];
+                      return issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category) && i.status === 'PENDING').length;
+                    })()}
+                  </h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                    <ClipboardList className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Today's Activities */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-violet-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Today's Logs</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">
+                    {(() => {
+                      const today = new Date().toDateString();
+                      return notices.filter(n => new Date(n.createdAt).toDateString() === today).length + 
+                             issues.filter(i => new Date(i.createdAt).toDateString() === today).length + 
+                             lostItems.filter(l => new Date(l.createdAt).toDateString() === today).length;
+                    })()}
+                  </h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-violet-50 group-hover:text-violet-600 transition-colors">
+                    <Activity className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
+                {/* Active Users */}
+                <div className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm relative overflow-hidden group hover:shadow-md hover:border-teal-400/30 transition-all duration-300">
+                  <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block truncate">Total Users</span>
+                  <h3 className="text-lg font-black text-slate-800 mt-1">{students.length}</h3>
+                  <div className="absolute right-3.5 bottom-3.5 p-1 bg-slate-50 text-slate-500 rounded-lg group-hover:bg-teal-50 group-hover:text-teal-600 transition-colors">
+                    <User className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            {/* Claims feed (Admins) / Status timeline (Students) */}
-            <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col h-[400px]">
-              {isAdmin ? (
-                <>
-                  <div className="flex justify-between items-center mb-4 shrink-0">
-                    <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Pending Claims approvals desk
-                    </span>
-                    <span className="text-[9px] text-slate-400 font-bold uppercase">{activeClaims} Requests</span>
+            {/* Section 3: Quick Actions */}
+            <div className="space-y-3">
+              <span className="text-[10px] font-black text-slate-800 tracking-wider uppercase">System Management Quick Actions</span>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                
+                <button
+                  onClick={() => router.push('/dashboard/students')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-blue-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    <Plus className="w-4 h-4" />
                   </div>
-                  <div className="flex-1 overflow-y-auto space-y-3">
-                    {claims.filter(c => c.status === 'PENDING').length > 0 ? (
-                      claims.filter(c => c.status === 'PENDING').map((claim) => (
-                        <div key={claim.id} className="p-4 rounded-xl bg-slate-50 border border-slate-200/50 space-y-3">
-                          <div>
-                            <p className="text-xs font-black text-slate-800">Claim for: {claim.item.itemName}</p>
-                            <p className="text-[10px] text-slate-500 mt-1 leading-relaxed"><span className="font-bold text-slate-600">Proof Description:</span> {claim.proof}</p>
-                            
-                            {/* Display visual claim image proof if exists */}
-                            {claim.imageUrl && (
-                              <div className="h-24 w-36 bg-slate-100 rounded-xl border border-slate-200 overflow-hidden relative mt-2.5">
-                                <img 
-                                  src={claim.imageUrl} 
-                                  alt="Claim proof document" 
-                                  className="object-cover w-full h-full"
-                                  onError={(e) => { (e.target as HTMLElement).style.display = 'none'; }}
-                                />
-                              </div>
-                            )}
+                  <h4 className="text-xs font-black text-slate-800">Add Student</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Register new user account.</p>
+                </button>
 
-                            <p className="text-[9px] text-slate-400 mt-2">Submitted by: {claim.requester.name} ({claim.requester.email})</p>
+                <button
+                  onClick={() => router.push('/dashboard/notices')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-cyan-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center mb-3 group-hover:bg-cyan-600 group-hover:text-white transition-all">
+                    <Bell className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-xs font-black text-slate-800">Create Notice</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Publish notices & events.</p>
+                </button>
+
+                <button
+                  onClick={() => router.push('/dashboard/resources')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-indigo-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                    <FolderOpen className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-xs font-black text-slate-800">Upload Resource</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Publish forms & resources.</p>
+                </button>
+
+                <button
+                  onClick={() => router.push('/dashboard/issues')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-rose-500/20 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3 group-hover:bg-rose-600 group-hover:text-white transition-all">
+                    <AlertTriangle className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-xs font-black text-slate-800">Review Complaints</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Manage filed student issues.</p>
+                </button>
+
+                <button
+                  onClick={() => router.push('/dashboard/requests')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-emerald-500/25 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                    <ClipboardList className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-xs font-black text-slate-800">Review Requests</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Approve or reject applications.</p>
+                </button>
+
+                <button
+                  onClick={() => router.push('/dashboard/analytics')}
+                  className="bg-white border border-slate-200/60 p-4 rounded-2xl shadow-sm text-left hover:shadow-md hover:border-violet-500/25 hover:translate-y-[-2px] transition-all duration-300 cursor-pointer group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-violet-50 text-violet-600 flex items-center justify-center mb-3 group-hover:bg-violet-600 group-hover:text-white transition-all">
+                    <Activity className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-xs font-black text-slate-805">Open Analytics</h4>
+                  <p className="text-[10px] text-slate-400 font-semibold mt-1">Visual operational charts.</p>
+                </button>
+
+              </div>
+            </div>
+
+            {/* Section 4: Feeds in specific order */}
+            <div className="space-y-6">
+              
+              {/* 1. Recent Activity (Unified Recent Activity Log) */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-808 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" /> Unified Recent Activities
+                  </span>
+                  <span className="text-[9px] text-slate-400 font-bold uppercase">System Event Logs</span>
+                </div>
+                <div className="space-y-2.5">
+                  {(() => {
+                    const recentActivities: any[] = [];
+                    notices.filter((n: any) => !['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category)).forEach(n => {
+                      recentActivities.push({
+                        id: n.id,
+                        title: `Broadcast: ${n.title}`,
+                        meta: `Posted by Admin | ${n.category}`,
+                        date: n.createdAt,
+                      });
+                    });
+                    notices.filter((n: any) => ['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category)).forEach(r => {
+                      recentActivities.push({
+                        id: r.id,
+                        title: `Resource: ${r.title}`,
+                        meta: `Published resource file | ${r.category}`,
+                        date: r.createdAt,
+                      });
+                    });
+                    const SERVICE_REQUEST_CATEGORIES = [
+                      'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                      'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                    ];
+                    issues.filter((i: any) => !SERVICE_REQUEST_CATEGORIES.includes(i.category)).forEach(c => {
+                      recentActivities.push({
+                        id: c.id,
+                        title: `Complaint: ${c.title}`,
+                        meta: `Reported by Student | Status: ${c.status}`,
+                        date: c.createdAt,
+                      });
+                    });
+                    issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category)).forEach(sr => {
+                      recentActivities.push({
+                        id: sr.id,
+                        title: `Request: ${sr.title}`,
+                        meta: `Service request filed | Status: ${sr.status}`,
+                        date: sr.createdAt,
+                      });
+                    });
+                    lostItems.forEach(li => {
+                      recentActivities.push({
+                        id: li.id,
+                        title: `Lost&Found: ${li.itemName}`,
+                        meta: `${li.type} listing reported | Location: ${li.location}`,
+                        date: li.createdAt,
+                      });
+                    });
+
+                    const sorted = recentActivities
+                      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+                      .slice(0, 8);
+
+                    return sorted.length > 0 ? (
+                      sorted.map((act) => (
+                        <div key={act.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                          <div className="min-w-0 flex-1 pr-4">
+                            <p className="text-xs font-black text-slate-808 truncate">{act.title}</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">{act.meta}</p>
                           </div>
-                          <div className="flex gap-2">
-                            <button 
-                              onClick={() => handleApproveClaim(claim.id)}
-                              className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold cursor-pointer"
-                            >
-                              Approve
-                            </button>
-                            <button 
-                              onClick={() => handleRejectClaim(claim.id)}
-                              className="px-3 py-1 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-[10px] font-bold cursor-pointer"
-                            >
-                              Reject
-                            </button>
-                          </div>
+                          <span className="text-[9px] text-slate-455 shrink-0 font-extrabold">{new Date(act.date).toLocaleDateString()}</span>
                         </div>
                       ))
                     ) : (
-                      <div className="flex flex-col items-center justify-center h-full text-slate-400">
-                        <Inbox className="w-8 h-8 mb-1 stroke-1" />
-                        <p className="text-xs font-bold">No claim requests pending</p>
-                      </div>
-                    )}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex justify-between items-center mb-4 shrink-0">
-                    <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Your complaints activity log
-                    </span>
-                    <button onClick={() => setActiveTab('issues')} className="text-[10px] text-rose-600 font-extrabold hover:underline">Create new</button>
-                  </div>
-                  <div className="flex-1 overflow-y-auto space-y-3">
-                    {issues.length > 0 ? (
-                      issues.map((i) => (
-                        <div key={i.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200/50 flex items-center justify-between">
-                          <div>
-                            <p className="text-xs font-black text-slate-800 line-clamp-1">{i.title}</p>
-                            <span className="text-[9px] font-bold text-slate-400 mt-1 block">Category: {i.category} | Severity: {i.severity}</span>
+                      <p className="text-xs text-slate-400 text-center py-4 font-semibold">No logged system actions.</p>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* 2. Recent Complaints (Latest Complaints) */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-805 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse" /> Latest Complaints
+                  </span>
+                  <button onClick={() => router.push('/dashboard/issues')} className="text-[10px] text-rose-600 font-extrabold hover:underline">Review All</button>
+                </div>
+                <div className="space-y-2.5">
+                  {(() => {
+                    const SERVICE_REQUEST_CATEGORIES = [
+                      'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                      'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                    ];
+                    const plainComplaints = issues.filter((i: any) => !SERVICE_REQUEST_CATEGORIES.includes(i.category));
+                    return plainComplaints.slice(0, 5).length > 0 ? (
+                      plainComplaints.slice(0, 5).map((i: any) => (
+                        <div key={i.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                          <div className="min-w-0 flex-1 pr-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[8px] font-black uppercase text-rose-700 bg-rose-50 border border-rose-100 px-1.5 py-0.5 rounded-md">{i.category}</span>
+                              <span className="text-[8px] font-black uppercase text-slate-505 bg-slate-100 px-1.5 py-0.5 rounded-md">{i.status}</span>
+                              <span className="text-[9px] text-slate-400 font-extrabold">{new Date(i.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <p className="text-xs font-black text-slate-800 mt-1 truncate">{i.title}</p>
                           </div>
-                          <span className={`text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase ${
-                            i.status === 'RESOLVED' ? 'bg-emerald-100 text-emerald-800' :
-                            i.status === 'IN_PROGRESS' ? 'bg-amber-100 text-amber-800' :
-                            'bg-rose-100 text-rose-800'
-                          }`}>
-                            {i.status}
-                          </span>
+                          <button onClick={() => router.push('/dashboard/issues')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-rose-650 bg-white border border-slate-200 hover:border-slate-350 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
                         </div>
                       ))
                     ) : (
-                      <div className="flex flex-col items-center justify-center h-full text-slate-400">
-                        <Inbox className="w-8 h-8 mb-1 stroke-1" />
-                        <p className="text-xs font-bold">You haven't filed any complaints</p>
-                      </div>
-                    )}
+                      <p className="text-xs text-slate-400 text-center py-4 font-semibold">No complaints reported.</p>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* 3. Latest Notices & Events */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-850 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" /> Latest Notices
+                  </span>
+                  <button onClick={() => router.push('/dashboard/notices')} className="text-[10px] text-cyan-600 font-extrabold hover:underline">Manage Notices</button>
+                </div>
+                <div className="space-y-2.5">
+                  {(() => {
+                    const plainNotices = notices.filter((n: any) => !['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category));
+                    return plainNotices.slice(0, 5).length > 0 ? (
+                      plainNotices.slice(0, 5).map((n: any) => (
+                        <div key={n.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl hover:bg-slate-100/50 transition-colors">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-[8px] font-black uppercase text-indigo-700 bg-indigo-50 border border-indigo-100 px-1.5 py-0.5 rounded-md">{n.category}</span>
+                            <span className="text-[9px] text-slate-400 font-extrabold">{new Date(n.createdAt).toLocaleDateString()}</span>
+                          </div>
+                          <p className="text-xs font-black text-slate-800 truncate">{n.title}</p>
+                          <p className="text-[10.5px] text-slate-505 font-semibold line-clamp-1 leading-relaxed mt-0.5">{n.description}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-xs text-slate-400 text-center py-4 font-semibold">No announcements published.</p>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* 4. Recently Added Resources (Recently Uploaded Resources) */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" /> Recently Uploaded Resources
+                  </span>
+                  <button onClick={() => router.push('/dashboard/resources')} className="text-[10px] text-indigo-600 font-extrabold hover:underline">Manage Resources</button>
+                </div>
+                <div className="space-y-2.5">
+                  {(() => {
+                    const resources = notices.filter((n: any) => ['Academic Forms', 'Study Resources', 'Important Documents', 'Downloads'].includes(n.category));
+                    return resources.slice(0, 5).length > 0 ? (
+                      resources.slice(0, 5).map((r: any) => (
+                        <div key={r.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                          <div className="min-w-0 flex-1 pr-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[8px] font-black uppercase text-blue-700 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-md">{r.category}</span>
+                              <span className="text-[9px] text-slate-400 font-extrabold">{new Date(r.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <p className="text-xs font-black text-slate-800 mt-1 truncate">{r.title}</p>
+                          </div>
+                          <button onClick={() => router.push('/dashboard/resources')} className="text-[10px] font-black uppercase tracking-wider text-slate-500 hover:text-indigo-650 bg-white border border-slate-200 hover:border-slate-350 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-xs text-slate-400 text-center py-4 font-semibold">No resource materials uploaded.</p>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* 5. Recent Service Requests (Latest Service Requests) */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-800 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" /> Latest Service Requests
+                  </span>
+                  <button onClick={() => router.push('/dashboard/requests')} className="text-[10px] text-emerald-600 font-extrabold hover:underline">Review All</button>
+                </div>
+                <div className="space-y-2.5">
+                  {(() => {
+                    const SERVICE_REQUEST_CATEGORIES = [
+                      'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                      'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                    ];
+                    const serviceRequests = issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category));
+                    return serviceRequests.slice(0, 5).length > 0 ? (
+                      serviceRequests.slice(0, 5).map((r: any) => (
+                        <div key={r.id} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl flex items-center justify-between hover:bg-slate-100/50 transition-colors">
+                          <div className="min-w-0 flex-1 pr-4">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[8px] font-black uppercase text-blue-700 bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-md">{r.category}</span>
+                              <span className="text-[8px] font-black uppercase text-slate-505 bg-slate-100 px-1.5 py-0.5 rounded-md">{r.status}</span>
+                              <span className="text-[9px] text-slate-400 font-extrabold">{new Date(r.createdAt).toLocaleDateString()}</span>
+                            </div>
+                            <p className="text-xs font-black text-slate-805 mt-1 truncate">{r.title}</p>
+                          </div>
+                          <button onClick={() => router.push('/dashboard/requests')} className="text-[10px] font-black uppercase tracking-wider text-slate-505 hover:text-blue-650 bg-white border border-slate-200 hover:border-slate-350 px-2.5 py-1 rounded-lg shadow-sm shrink-0 cursor-pointer">View</button>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-xs text-slate-400 text-center py-4 font-semibold">No service requests submitted.</p>
+                    );
+                  })()}
+                </div>
+              </div>
+
+              {/* 6. Analytics Summary */}
+              <div className="bg-white p-6 rounded-[18px] border border-slate-200 shadow-sm space-y-4">
+                <div className="flex justify-between items-center shrink-0">
+                  <span className="text-xs font-black text-slate-808 flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse" /> Analytics Summary
+                  </span>
+                  <button onClick={() => router.push('/dashboard/analytics')} className="text-[10px] text-violet-600 font-extrabold hover:underline">View Detailed Analytics</button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Resolution Rate */}
+                  <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-xl space-y-2">
+                    <div className="flex justify-between text-xs font-bold text-slate-600">
+                      <span>Complaints Resolution Rate</span>
+                      <span className="text-slate-800 font-black">
+                        {totalComplaints > 0 ? Math.round((resolvedCount / totalComplaints) * 100) : 0}%
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                        style={{ width: `${totalComplaints > 0 ? (resolvedCount / totalComplaints) * 100 : 0}%` }}
+                      />
+                    </div>
+                    <p className="text-[10px] text-slate-400 font-semibold">{resolvedCount} of {totalComplaints} complaints resolved successfully.</p>
                   </div>
-                </>
-              )}
+
+                  {/* Request Completion Rate */}
+                  <div className="p-4 bg-slate-50 border border-slate-200/60 rounded-xl space-y-2">
+                    {(() => {
+                      const SERVICE_REQUEST_CATEGORIES = [
+                        'ID Card Request', 'Bonafide Certificate', 'Hostel Request', 
+                        'Parking Pass', 'Leave Application', 'Library Card Request', 'Degree/Transcript Request'
+                      ];
+                      const sReqs = issues.filter((i: any) => SERVICE_REQUEST_CATEGORIES.includes(i.category));
+                      const totalSReqs = sReqs.length;
+                      const resolvedSReqs = sReqs.filter((r: any) => r.status === 'APPROVED' || r.status === 'RESOLVED').length;
+                      const completionRate = totalSReqs > 0 ? Math.round((resolvedSReqs / totalSReqs) * 100) : 0;
+                      return (
+                        <>
+                          <div className="flex justify-between text-xs font-bold text-slate-600">
+                            <span>Service Request Completion Rate</span>
+                            <span className="text-slate-800 font-black">{completionRate}%</span>
+                          </div>
+                          <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-blue-500 rounded-full transition-all duration-500" 
+                              style={{ width: `${completionRate}%` }}
+                            />
+                          </div>
+                          <p className="text-[10px] text-slate-400 font-semibold">{resolvedSReqs} of {totalSReqs} applications processed.</p>
+                        </>
+                      );
+                    })()}
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-        </div>
+        ) : (
+          <StudentOverview 
+            totalNotices={totalNotices}
+            pendingCount={pendingCount}
+            progressCount={progressCount}
+            resolvedCount={resolvedCount}
+            totalComplaints={totalComplaints}
+            activeClaims={activeClaims}
+            categoryCounts={categoryCounts}
+            notices={notices}
+            issues={issues}
+            lostItems={lostItems}
+            claims={claims}
+            setActiveTab={setActiveTab}
+            isAdmin={isAdmin}
+            handleApproveClaim={handleApproveClaim}
+            handleRejectClaim={handleRejectClaim}
+            user={user}
+            getGreeting={getGreeting}
+          />
+        )
       )}
 
       {/* 2. COMPLAINTS & ISSUES TAB */}
@@ -1036,7 +1592,7 @@ export default function DashboardPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-extrabold text-slate-500 uppercase">Type</label>
                   <select
@@ -1152,7 +1708,7 @@ export default function DashboardPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-extrabold text-slate-500 uppercase">Category</label>
                   <select
@@ -1182,7 +1738,7 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1 col-span-2">
                   <label className="text-[10px] font-extrabold text-slate-500 uppercase">Expiry Date (Optional)</label>
                   <input
@@ -1268,7 +1824,7 @@ export default function DashboardPage() {
             <form onSubmit={handleUpdateStatus} className="space-y-4">
               <p className="text-xs font-bold text-slate-700">Complaint: {showStatusModal.title}</p>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-extrabold text-slate-500 uppercase">Resolution Status</label>
                   <select
