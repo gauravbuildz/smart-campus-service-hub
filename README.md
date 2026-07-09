@@ -1,11 +1,16 @@
 <div align="center">
 
+<!-- 🚨 HACKATHON TIP: Replace this placeholder with a beautiful Canva banner (1200x400px) -->
+<img src="https://via.placeholder.com/1200x400/0f172a/38bdf8?text=Smart+Campus+Service+Hub+Banner" alt="Smart Campus Hub Banner" width="100%" />
+
 # 🎓 Smart Campus Service Hub
 
-### *A premium, centralized digital ecosystem modernizing student services, operations, and campus operations.*
+### *Modernizing student services, resolving infrastructure issues, and centralizing campus operations.*
 
 <p align="center">
-  <a href="https://smart-campus-management-4rg6.vercel.app/"><strong>🚀 Experience Live Demo »</strong></a>
+  <a href="[YOUR_LIVE_DEMO_LINK]"><strong>🌐 Experience Live Demo</strong></a> · 
+  <a href="[YOUR_PITCH_VIDEO_LINK]"><strong>🎥 Watch 2-Min Pitch</strong></a> · 
+  <a href="#-getting-started"><strong>💻 Installation</strong></a>
 </p>
 
 [![Next.js Version](https://img.shields.io/badge/Next.js-16.2.6-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
@@ -15,139 +20,63 @@
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-4.24.14-cyan?style=for-the-badge&logo=nextauth)](https://next-auth.js.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
----
-
 </div>
 
-## 📌 Table of Contents
-1. [Project Overview](#-project-overview)
-2. [Live Demo & Repository](#-live-demo--repository)
-3. [Key Features](#-key-features)
-4. [Technology Stack](#-technology-stack)
-5. [Folder Structure](#-folder-structure)
-6. [System Architecture](#-system-architecture)
-7. [Authentication & Authorization Flow](#-authentication--authorization-flow)
-8. [Database Architecture & ERD](#-database-architecture--erd)
-9. [Application Lifecycle](#-application-lifecycle)
-10. [Feature Modules Walkthrough](#-feature-modules-walkthrough)
-11. [API Endpoint Directory](#-api-endpoint-directory)
-12. [Installation & Setup](#-installation--setup)
-13. [Environment Configuration](#-environment-configuration)
-14. [Design & Layout Specs](#-design--layout-specs)
-15. [Performance & Security Metrics](#-performance--security-metrics)
-16. [📸 Screenshots](#-screenshots)
-17. [Future Enhancements](#-future-enhancements)
-18. [Contributing](#-contributing)
-19. [License & Acknowledgments](#-license--acknowledgments)
+---
+
+## 🚀 2-Minute Elevator Pitch
+In traditional institutions, campus operations are plagued by fragmented WhatsApp groups, offline paper forms, and untracked complaints. **Smart Campus Service Hub** is a unified, real-time platform that brings infrastructure complaints, lost & found requests, and official document applications into one beautifully designed, role-based dashboard. 
 
 ---
 
-## 💡 Project Overview
+## 💥 The Problem vs. The Solution
 
-In traditional educational institutions, campus operations are plagued by fragmented communication, offline forms, manual workflows, and disconnected portals. 
-**Smart Campus Service Hub** solves these pain points by offering a modern, unified, role-based platform that centralizes notices, streamlines issue reporting, hosts digital document downloads, manages service applications, and coordinates lost-and-found requests inside a single real-time dashboard.
-
-### Target Users
-*   **Students:** Apply for services (ID cards, Bonafide certificates, etc.), file complaints (WiFi, Classrooms, Hostels), claim lost items, and receive notifications immediately.
-*   **Administrators:** Broadcast campus-wide notices, review and change ticket statuses, register or update student data, publish academic materials, and inspect campus analytics.
-
-### Key Benefits
-*   **Centralized Source of Truth:** Eliminates messy chat groups and physical notice boards.
-*   **Accelerated Resolutions:** Real-time logging of issues with status history audits.
-*   **Offline Fallback Adaptability:** Fully functional file upload dropzone with a simulated local preview when UPLOADTHING keys are omitted.
+| ❌ The Old Way (Problem) | ✅ The Smart Campus Way (Solution) |
+| :--- | :--- |
+| **Fragmented Comm:** Notices lost in endless WhatsApp chats. | **Centralized Hub:** Categorized, pin-able digital notice board. |
+| **Untracked Issues:** Verbal complaints to wardens get ignored. | **Transparent Tracking:** Real-time ticket timelines & status logs. |
+| **Paper Forms:** Standing in line for ID cards or Bonafide certs. | **Digital Desk:** 1-click applications with digital attachments. |
+| **Manual Triage:** Admins overwhelmed figuring out what's urgent. | **Auto-Severity NLP:** Smart keywords flag dangerous issues instantly. |
 
 ---
 
-## 🔗 Live Demo & Repository
+## ✨ The "X-Factor" (Core Innovation)
 
-*   **Production Deployment:** [https://smart-campus-management-4rg6.vercel.app/](https://smart-campus-management-4rg6.vercel.app/)
-*   **Source Code Repository:** [https://github.com/gaurav-spnrec/smart-campus-management-1.git](https://github.com/gaurav-spnrec/smart-campus-management-1.git)
+### 🧠 Auto-Severity Issue Detector
+We didn't just build a form; we built a smart triage system. When a student reports an issue, our custom keyword-matching algorithm scans the description. 
+* Mention *"spark"*, *"fire"*, or *"live wire"*? ➡️ Instantly flagged as **HIGH** severity. 
+* Mention *"dusty"* or *"slow wifi"*? ➡️ Flagged as **LOW** severity.
+This helps campus admins prioritize critical infrastructure threats instantly without manual sorting.
 
----
-
-## ✨ Key Features
-
-*   **🛡️ Secure Role-Based Access:** Automatic dashboard access control via NextAuth middleware mapping permissions dynamically to either `STUDENT` or `ADMIN`.
-*   **🛠️ Complaints Hub:** File campus infrastructure, classroom, or housing issues. Includes a smart keyword-based **Auto-Severity Detector** that highlights critical complaints (e.g. fire, shock, danger) as `HIGH` severity and routine alerts (e.g. slow, dusty) as `LOW` severity.
-*   **📢 Notices & Announcements Board:** Broadcaster panel with categorizations (`GENERAL`, `EXAM`, `EVENT`, `CIRCULAR`), expiration parameters, attachments, and pinned notifications.
-*   **🎒 Lost & Found Hub:** Secure reporter tracking with image proofs. Allows students to log items and submit verified ownership claims.
-*   **📄 Resource & Form Center:** Document library containing academic syllabus templates, student guidelines, timetables, and download forms.
-*   **🪪 Service Requests Desk:** Apply for Bonafide certificates, parking passes, hostel checks, library registration, or grade sheets.
-*   **📊 Campus Analytics Engine:** Admin panel featuring real-time distribution charts, open issue stats, notification logs, and user records.
-*   **🔔 Real-Time Notification Recipient Matrix:** Push system logging notices, claims notifications, and admin approvals inside a clean inbox drawer.
+> **Visualizing the Magic:** 
+> *(Hackathon Tip: Add a 3-second GIF here showing a student typing a complaint about a "live wire" and the system automatically tagging it as HIGH priority)*
+> <!-- <img src="[LINK_TO_YOUR_GIF]" width="600" /> -->
 
 ---
 
-## 💻 Technology Stack
+## 📸 Platform Previews
+*(Judges love visuals! Add 3-4 high-quality screenshots or GIFs of your best UI here)*
 
-| Layer | Technology | Version | Purpose |
-| :--- | :--- | :--- | :--- |
-| **Frontend Framework** | Next.js (App Router) | `16.2.6` | Client/Server Rendering, API Handlers |
-| **UI Library** | React | `19.2.4` | Component State Lifecycle & Interactive Views |
-| **Styling Engine** | Tailwind CSS | `v4.0` | Modern, responsive grid layouts and variables |
-| **Database Engine** | PostgreSQL (Neon Cloud) | - | Persistent cloud database storage |
-| **Database ORM** | Prisma Client | `5.18.0` | Schema definitions and type-safe query generation |
-| **Authentication** | NextAuth.js | `4.24.14` | Secure CredentialsProvider JWT session management |
-| **Client Fetching** | SWR | `2.4.2` | High-frequency polling data cache synchronization |
-| **Upload Service** | UploadThing | `7.7.4` | Cloud image upload handler & mock fallback |
-| **Icons Library** | Lucide React | `0.469.0` | Unified modern icons set |
-| **Security Layer** | bcryptjs | `3.0.3` | Multi-round database password hashing |
+<div align="center">
+  <img src="[LINK_TO_DASHBOARD_SCREENSHOT]" alt="Admin Dashboard" width="48%" />
+  <img src="[LINK_TO_LOST_AND_FOUND_SCREENSHOT]" alt="Lost and Found" width="48%" />
+</div>
 
 ---
 
-## 📂 Folder Structure
+## 🛠 Core Features
 
-```
-smart-campus-management/
-├── prisma/
-│   ├── schema.prisma          # Prisma data schemas & relational models
-│   └── seed.ts                # Seeding script for mock users & logs
-├── public/                    # Static asset catalog
-├── src/
-│   ├── app/
-│   │   ├── api/               # Serverless API routes
-│   │   │   ├── auth/          # Credentials sign-in & sign-up endpoints
-│   │   │   ├── issues/        # Ticket & request logic controllers
-│   │   │   ├── lost-found/    # Items & ownership claims management
-│   │   │   ├── notices/       # Broadcast announcements & resource uploads
-│   │   │   ├── notifications/ # User specific inbox notification handles
-│   │   │   ├── students/      # Admin student CRUD actions
-│   │   │   └── uploadthing/   # Upload file router configurations
-│   │   ├── dashboard/         # Main layout & role-mapped panels
-│   │   │   ├── analytics/     # Admin-only KPI dashboards
-│   │   │   ├── issues/        # Infrastructure complaints tracker
-│   │   │   ├── lost-found/    # Reported items feed & claims sub-flow
-│   │   │   ├── notices/       # Announcement feeds & pinned notice items
-│   │   │   ├── profile/       # User profile details and stats dashboard
-│   │   │   ├── requests/      # ID cards, certificates, & hostel applications
-│   │   │   ├── resources/     # Forms & downloads storage center
-│   │   │   ├── settings/      # Profile actions & passwords change panel
-│   │   │   └── students/      # Admin-only user control list
-│   │   ├── layout.tsx         # Global wrap context Providers
-│   │   └── page.tsx           # Entry controller & role router redirect
-│   ├── components/
-│   │   ├── DashboardHero.tsx  # Dynamic dashboard section headers
-│   │   ├── LandingPageClient.tsx # Home page modals & animations client
-│   │   ├── Providers.tsx      # NextAuth session propagation container
-│   │   └── Toast.tsx          # Client warning/success toasts helper
-│   ├── lib/
-│   │   ├── auth.ts            # NextAuth Credentials configuration mapping
-│   │   ├── db.ts              # Global cached PrismaClient initializer
-│   │   └── uploadthing.tsx    # Upload dropzone component with mock preview
-│   └── middleware.ts          # Server-side auth route checks
-├── .env                       # Environment variables config
-├── eslint.config.mjs          # Linting presets
-├── next.config.ts             # Rewrite proxy paths and server packaging configurations
-├── package.json               # Package dependencies & commands
-├── postcss.config.mjs         # Tailwind processor properties
-└── tsconfig.json              # TypeScript compilation attributes
-```
+* **🛡️ Secure Role-Based Access (RBAC):** Dynamic dashboards using NextAuth middleware. `STUDENT` and `ADMIN` roles see completely different, tailored UIs.
+* **🎒 Lost & Found Ecosystem:** Secure reporter tracking with image proofs. Students log items and submit verified ownership claims, all resolved by admins.
+* **📄 Resource & Service Desk:** 1-click applications for Bonafide certificates, ID card requests, and direct downloads for academic guidelines.
+* **📊 Analytics Engine:** Real-time distribution charts showing open issue stats, notification logs, and user activity metrics.
+* **🔔 Real-Time Notification Matrix:** A centralized push-system alerting students of claim approvals, notice broadcasts, and ticket resolutions in a clean inbox drawer.
 
 ---
 
-## ⚙️ System Architecture
+## 🏗️ System Architecture
 
-The application implements a decoupled App Router structure using Next.js route rewrites for client pathways. Both `/admin/dashboard` and `/student/dashboard` are rewritten to `/dashboard`, which resolves dynamically based on the session role.
+Our decoupled App Router structure leverages Next.js route rewrites for dynamic client pathways, ensuring seamless authorization.
 
 ```mermaid
 graph TD
@@ -158,486 +87,80 @@ graph TD
     RW -->|/admin/dashboard| RouteDashboard[/dashboard]
     RW -->|/student/dashboard| RouteDashboard
     
-    RouteDashboard --> Layout[src/app/dashboard/layout.tsx]
-    Layout --> PageRenderer[src/app/dashboard/page.tsx]
+    RouteDashboard --> Layout[Dashboard Layout]
+    Layout --> PageRenderer[Role-Based Rendering]
     
-    PageRenderer -->|Role: STUDENT| StudentView[Student Dashboard Widgets]
-    PageRenderer -->|Role: ADMIN| AdminView[Admin Dashboard Widgets]
+    PageRenderer -->|Role: STUDENT| StudentView[Student Widgets]
+    PageRenderer -->|Role: ADMIN| AdminView[Admin Widgets]
     
-    StudentView & AdminView -->|API Fetch / Poll| SWR[SWR Client-Side Hooks]
-    SWR -->|Requests| APILayer[src/app/api/* Routing Layer]
-    
-    APILayer -->|Queries| Prisma[Prisma ORM Client]
-    Prisma -->|Read/Write| DB[(PostgreSQL Database)]
+    StudentView & AdminView -->|API Fetch / Poll| SWR[SWR Hooks]
+    SWR -->|Requests| APILayer[Next.js Serverless APIs]
+    APILayer -->|Queries| Prisma[Prisma ORM]
+    Prisma -->|Read/Write| DB[(Neon PostgreSQL)]
 ```
 
 ---
 
-## 🔐 Authentication & Authorization Flow
-
-1.  **Authentication:** Users enter credentials at the Landing Page modals which calls the `CredentialsProvider` defined in `src/lib/auth.ts`.
-2.  **Password Hashing:** Verified using `bcryptjs` comparing database password hashes.
-3.  **Session Middleware:** Token states are mapped inside the JWT callback. `src/middleware.ts` intercepts `/dashboard/:path*`, `/admin/dashboard/:path*`, and `/student/dashboard/:path*`.
-4.  **Role Authorization:** A user role is determined from their session profile (`STUDENT` or `ADMIN`).
-5.  **Route Protection:** The middleware automatically redirects students requesting admin routes to `/student/dashboard` and keeps authenticated sessions away from landing pages.
+## 🧗 Challenges We Ran Into (And Solved!)
+* **NextAuth Middleware Loops:** Implementing role-based path protection initially caused infinite redirect loops. We solved this by creating strict dynamic path mapping in `middleware.ts` to separate `/admin` and `/student` routes securely.
+* **Database Connection Leaks:** Hot-reloading in Next.js development kept exhausting our Neon Serverless PostgreSQL connection pool. We implemented a global cached PrismaClient initializer (`src/lib/db.ts`) to preserve instances across reloads.
+* **Real-time UX vs Server Load:** We wanted real-time updates without WebSockets (to keep the architecture completely serverless). We optimized `SWR` caching with dynamic background polling (every 5 seconds) to simulate real-time feels without crashing our API limits.
 
 ---
 
-## 🗄️ Database Architecture & ERD
+## 💻 Getting Started (Local Setup)
 
-The data layer uses Prisma schemas mapping user relationships across alerts, issues, history tables, items, and inboxes.
+Want to run this locally? It takes less than 3 minutes.
 
-```mermaid
-erDiagram
-    USER {
-        string id PK
-        string name
-        string email UK
-        string password
-        string role "STUDENT | ADMIN"
-        datetime createdAt
-    }
-    NOTICE {
-        string id PK
-        string title
-        string description
-        string category "EVENT | NOTICE | Academic Forms | Study Resources..."
-        string priority "LOW | MEDIUM | HIGH | URGENT"
-        string attachmentUrl
-        boolean isPinned
-        datetime expiryDate
-        string authorId FK
-        datetime createdAt
-    }
-    ISSUE {
-        string id PK
-        string title
-        string description
-        string category "WIFI | HOSTEL | ID Card Request..."
-        string status "PENDING | IN_PROGRESS | RESOLVED | APPROVED"
-        string severity "LOW | MEDIUM | HIGH"
-        string attachmentUrl
-        string studentId FK
-        datetime createdAt
-    }
-    STATUS_HISTORY {
-        string id PK
-        string issueId FK
-        string status
-        string updatedBy
-        string comment
-        datetime createdAt
-    }
-    LOST_AND_FOUND {
-        string id PK
-        string itemName
-        string description
-        string category "ELECTRONICS | BOOKS | CLOTHING..."
-        string type "LOST | FOUND"
-        string status "REPORTED | RESOLVED | CLAIMED"
-        string location
-        string imageUrl
-        string reporterId FK
-        datetime createdAt
-    }
-    CLAIM_REQUEST {
-        string id PK
-        string itemId FK
-        string requesterId FK
-        string proof
-        string imageUrl
-        string status "PENDING | APPROVED | REJECTED"
-        datetime createdAt
-    }
-    NOTIFICATION {
-        string id PK
-        string title
-        string message
-        string link
-        string senderId FK
-        datetime createdAt
-    }
-    NOTIFICATION_RECIPIENT {
-        string id PK
-        string notificationId FK
-        string userId FK
-        boolean isRead
-        datetime readAt
-    }
-
-    USER ||--o{ NOTICE : "authors"
-    USER ||--o{ ISSUE : "raises"
-    USER ||--o{ LOST_AND_FOUND : "reports"
-    USER ||--o{ CLAIM_REQUEST : "submits"
-    USER ||--o{ NOTIFICATION : "sends"
-    USER ||--o{ NOTIFICATION_RECIPIENT : "receives"
-    
-    ISSUE ||--o{ STATUS_HISTORY : "tracks status history"
-    LOST_AND_FOUND ||--o{ CLAIM_REQUEST : "has claims"
-    NOTIFICATION ||--o{ NOTIFICATION_RECIPIENT : "has recipients"
-```
-
----
-
-## 🔄 Application Lifecycle
-
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Student
-    actor Admin
-    participant App as Dashboard Router
-    participant API as Serverless Routes
-    participant DB as PostgreSQL Database
-    
-    Student->>App: Submits WiFi Complaint (e.g. WiFi down)
-    App->>API: POST /api/issues
-    Note over API: Severity Auto-Detector checks body text.<br/>Determines HIGH based on danger/leak keywords.
-    API->>DB: INSERT into Issue & StatusHistory
-    DB-->>API: Success
-    API-->>App: Returned Ticket Data
-    
-    Admin->>App: Logs in & views dashboard
-    App->>API: GET /api/issues
-    API->>DB: Fetch All
-    DB-->>API: Issues List
-    API-->>App: Render Issues Feed
-    
-    Admin->>App: Updates status to "IN_PROGRESS" + Comment
-    App->>API: PATCH /api/issues (id, status, comment)
-    API->>DB: UPDATE Issue status & INSERT StatusHistory log
-    DB-->>API: Success
-    API-->>App: Refreshed Feed (via SWR Mutate)
-```
-
----
-
-## 🧩 Feature Modules Walkthrough
-
-<details>
-<summary><b>🛠 Complaints Hub Workflow</b></summary>
-
-*   **Purpose:** Report and resolve campus infrastructure issues.
-*   **Student Actions:** Enter a title, description, category, and an image attachment. SWR registers the complaint, auto-calculates severity levels via keyword matching, and appends a `PENDING` status.
-*   **Admin Actions:** Review the complaint timeline, update status to `IN_PROGRESS` or `RESOLVED`, adjust priority severity levels, and append feedback logs which display directly in the student's ticket history.
-</details>
-
-<details>
-<summary><b>🎒 Lost & Found Module</b></summary>
-
-*   **Purpose:** Coordinate search and return pipelines for lost belongings.
-*   **Student Actions:** Post items (`LOST` or `FOUND`) with locations and details. Submit an ownership claim on a found item, uploading an image proof of ownership.
-*   **Admin Actions:** Review pending claims on items, approve or reject them. Approving automatically rejects all other overlapping pending claims on the same item, updating the item status to `CLAIMED`, and pushes an inbox alert to the student.
-</details>
-
-<details>
-<summary><b>📄 Resource Hub & Service Requests</b></summary>
-
-*   **Purpose:** Centralize academic materials and document application workflows.
-*   **Resource Hub Workflow:** Admins publish forms (Syllabus files, college guidelines). To preserve structural uniformity, these documents are stored in the `Notice` model, with file sizes and type tags serialized into JSON descriptions.
-*   **Service Desk Workflow:** Students apply for ID cards, hostel checkouts, or parking passes. These requests leverage the `Issue` model, keeping applications separate from infrastructure complaints.
-</details>
-
----
-
-## 📡 API Endpoint Directory
-
-All endpoints are protected and verify active NextAuth session tokens prior to execution.
-
-### Authentication & Students
-| Method | Endpoint | Access | Purpose |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/auth/register` | Public | Register new credentials, default role to `STUDENT` |
-| `GET` | `/api/students` | Admin | Fetch all registered student and admin records |
-| `PUT` | `/api/students` | Admin | Update student profile details (name, email, role, password) |
-| `DELETE` | `/api/students` | Admin | Delete a user profile (prevents self-deletion) |
-
-### Notices & Announcements
-| Method | Endpoint | Access | Purpose |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/notices` | Authorized | Fetch unexpired notices sorted by pinned priorities |
-| `POST` | `/api/notices` | Admin | Create a new notice or Resource Hub document. Automatically broadcasts alert inboxes to all other students |
-| `DELETE` | `/api/notices` | Admin | Delete notice/document |
-
-### Issues & Service Requests
-| Method | Endpoint | Access | Purpose |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/issues` | Authorized | Student gets own issues; Admin gets all campus complaints/requests |
-| `POST` | `/api/issues` | Student | Raise complaint or service request. Auto-sets severity tags |
-| `PATCH` | `/api/issues` | Admin | Update issue status/severity, write comments, append logs |
-
-### Lost & Found
-| Method | Endpoint | Access | Purpose |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/lost-found` | Authorized | Fetch list of all lost/found items |
-| `POST` | `/api/lost-found` | Student | Report lost or found items |
-| `DELETE` | `/api/lost-found` | Authorized | Delete report (allowed for reporter or Admins) |
-| `GET` | `/api/lost-found/claim` | Authorized | Fetch claim requests (Student: own claims; Admin: all claims) |
-| `POST` | `/api/lost-found/claim` | Student | Apply ownership claim request, alert item reporter & admin |
-| `PATCH` | `/api/lost-found/claim` | Admin | Approve/Reject claim request, resolve item state, update inbox alerts |
-
-### Notifications Inbox
-| Method | Endpoint | Access | Purpose |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/api/notifications` | Authorized | Fetch top 20 notifications for the authenticated user |
-| `PATCH` | `/api/notifications` | Authorized | Mark a single notification or all notifications as read |
-
----
-
-## 🚀 Installation & Setup
-
-Follow these steps to configure and run the application locally.
-
-### Prerequisites
-*   Node.js (v18.x or later)
-*   npm or yarn
-
-### 1. Clone the Repository
+**1. Clone the Repository & Install Dependencies**
 ```bash
-git clone https://github.com/gaurav-spnrec/smart-campus-management-1.git
+git clone [https://github.com/gaurav-spnrec/smart-campus-management-1.git](https://github.com/gaurav-spnrec/smart-campus-management-1.git)
 cd smart-campus-management-1
-```
-
-### 2. Install Project Dependencies
-```bash
 npm install
 ```
 
-### 3. Initialize Database Schemas
-Generate the type-safe client maps and push schema configurations directly to your local database:
-```bash
-npx prisma generate
-npx prisma db push
-```
-
-### 4. Seed Mock Data
-Populate the database with sample notices, tickets, lost & found items, and default profiles:
-```bash
-npx prisma db seed
-```
-
-### 5. Start Development Server
-```bash
-npm run dev
-```
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
----
-
-## 📝 Environment Configuration
-
-Create a `.env` file in the project root directory.
-
+**2. Environment Variables Configuration**
+Create a `.env` file in the root directory:
 ```properties
-# Prisma Database Connections (Neon Serverless PostgreSQL connection)
-DATABASE_URL="postgresql://neondb_owner:***@ep-blue-smoke-aqssraku-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require"
-DIRECT_URL="postgresql://neondb_owner:***@ep-blue-smoke-aqssraku.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require"
+# Prisma Database Connections (Neon Serverless)
+DATABASE_URL="postgresql://[USER]:[PASSWORD]@[HOST]/neondb?sslmode=require"
+DIRECT_URL="postgresql://[USER]:[PASSWORD]@[HOST]/neondb?sslmode=require"
 
 # NextAuth Configurations
 NEXTAUTH_SECRET="super-secret-campus-key-12345"
 NEXTAUTH_URL="http://localhost:3000"
 
-# Optional Cloud File Upload Integrations (Mock upload is active if missing)
+# Optional: UploadThing (Mock upload is active if missing)
 # UPLOADTHING_TOKEN="YOUR_UPLOADTHING_API_TOKEN"
 ```
 
-### 👤 Local Testing Accounts
-If you run the seeding script (`npm run db seed`), you can log in using these default credentials:
+**3. Database Setup & Run**
+```bash
+npx prisma generate
+npx prisma db push
+npx prisma db seed # Seeds mock admin & student accounts
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-*   **Administrator Account:**
-    *   **Email:** `admin@campus.edu`
-    *   **Password:** `admin123`
-*   **Student Account:**
-    *   **Email:** `student@campus.edu`
-    *   **Password:** `student123`
-
----
-
-## 🎨 Design & Layout Specs
-
-*   **Glassmorphic Accents:** Uses deep colors, subtle border shadows (`border-slate-200/60`), and backdrop-blur backings to create high-end visual cards.
-*   **Adaptive Theme Gradients:** Dashboard sections feature color themes (e.g. Complaints use Rose gradients, Notices fuchsia violet, and Analytics emerald greens).
-*   **Fully Responsive Breakpoints:**
-    *   **Desktop/Laptop:** Expanded sidebar navigation menus.
-    *   **Tablet/Mobile:** Collapses sidebar panels into drawer menus toggled using hamburger bars. Stack tables and cards to ensure readability.
-
----
-
-## 📈 Performance & Security Metrics
-
-*   **Optimized Client Fetching (SWR):** Utilizes `swr` caches for client queries. Features dynamic background polling intervals (refresh every 5 seconds) to ensure real-time campus data updates without full page reloads.
-*   **Robust Connection Pools:** The Prisma Client client-wrapper (`src/lib/db.ts`) preserves connection instances in hot-reloading development environments to avoid PostgreSQL connection socket leaks.
-*   **Middleware Route Guards:** No client layouts load unless sessions exist. Unauthorized pages are caught and redirected.
-*   **Sanitized Data Inputs:** Role switches and registration formats are checked server-side to prevent privilege escalation.
-
----
-
-## 📸 Screenshots
-
-> [!NOTE]
-> This project features a modern, responsive, and glassmorphic user interface. Since screenshots are not currently committed to the repository, all major views are listed below as **missing/planned**. If you are running the application locally or in staging, you can help by contributing screenshots to the directories shown below. A complete contribution guide can be found in [screenshots/README.md](file:///c:/Users/gaura/Downloads/smart%20-campus-%20management/screenshots/README.md).
-
-### 🗺️ Screenshot Contribution Guide & Map
-
-To keep the repository clean and premium, please place all screenshots in the `screenshots/` directory. The following list outlines the required screenshots, their recommended filenames, and description details:
-
-<details open>
-<summary><b>🌐 Landing & Authentication Views (4 items)</b></summary>
-
-*   **1. Project Cover**
-    *   **File Path:** `screenshots/01-cover.png`
-    *   **Description:** The project brand cover / banner showcasing the core branding elements.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **2. Landing Page**
-    *   **File Path:** `screenshots/02-landing-page.png`
-    *   **Description:** The homepage showcasing the dynamic glassmorphic panels, feature highlight cards, and FAQ accordions.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **3. Login Page**
-    *   **File Path:** `screenshots/03-login-page.png`
-    *   **Description:** The Credentials Authentication modal displaying fields for email, password, and instant toast validation.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **4. Signup Page**
-    *   **File Path:** `screenshots/04-signup-page.png`
-    *   **Description:** The registration modal showing user enrollment options with role-based access dropdown inputs.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-
-</details>
-
-<details>
-<summary><b>🧑‍🎓 Student Dashboard & Feature Views (9 items)</b></summary>
-
-*   **5. Student Dashboard**
-    *   **File Path:** `screenshots/05-student-dashboard.png`
-    *   **Description:** The default portal layout showing active complaint counters, dynamic notifications drawer, and pinned notices.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **6. Student Analytics**
-    *   **File Path:** `screenshots/06-student-analytics.png`
-    *   **Description:** The student’s dashboard sub-views showing graphs and charts of their submitted requests and status.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **7. Student Resource Hub**
-    *   **File Path:** `screenshots/07-resource-hub.png`
-    *   **Description:** The document library containing downloadable syllabi, timetables, and guideline forms.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **8. Student Service Requests**
-    *   **File Path:** `screenshots/08-service-requests.png`
-    *   **Description:** The desk layout where students apply for Bonafide certificates, ID card requests, and parking passes.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **9. Student Notices**
-    *   **File Path:** `screenshots/09-notices.png`
-    *   **Description:** The announcements page displaying exam schedules, events, circulars, and pinned announcements.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **10. Student Lost & Found**
-    *   **File Path:** `screenshots/10-lost-found.png`
-    *   **Description:** The Lost & Found feed showing cards of reported items and the ownership claim modal.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **11. Student Complaints & Reporting**
-    *   **File Path:** `screenshots/11-issue-reporting.png`
-    *   **Description:** The issue reporting form demonstrating real-time description keyword matching and automatic severity tagging.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **12. Student Notifications**
-    *   **File Path:** `screenshots/12-notifications.png`
-    *   **Description:** The drawer/modal view displaying real-time alert logs of notice broadcasts, claim approvals, and ticket updates.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **13. Student Profile**
-    *   **File Path:** `screenshots/13-profile.png`
-    *   **Description:** The settings panel for checking user information, updating login credentials, and changing security passwords.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-
-</details>
-
-<details>
-<summary><b>👩‍💼 Admin Management & Dashboard Views (10 items)</b></summary>
-
-*   **14. Admin Dashboard**
-    *   **File Path:** `screenshots/14-admin-dashboard.png`
-    *   **Description:** The main administration hub displaying summary statistics, recent complaints, and service desk applications.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **15. Admin Analytics**
-    *   **File Path:** `screenshots/15-admin-analytics.png`
-    *   **Description:** Interactive analytics dashboard presenting category-wise status distribution charts and resolution histories.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **16. Student Management**
-    *   **File Path:** `screenshots/16-student-management.png`
-    *   **Description:** The control board showing a grid of registered users with administrative actions for editing, promoting, or deleting.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **17. Notice Management**
-    *   **File Path:** `screenshots/17-notice-management.png`
-    *   **Description:** The administrative broadcast panel to post, schedule, pin, or delete notices with attachment uploads.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **18. Resource Management**
-    *   **File Path:** `screenshots/18-resource-management.png`
-    *   **Description:** The admin resource dashboard to upload, tag, and categorize academic guidelines and forms.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **19. Service Request Management**
-    *   **File Path:** `screenshots/19-service-request-management.png`
-    *   **Description:** The administrative desk displaying student request pipelines with options to change status or add review logs.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **20. Lost & Found Management**
-    *   **File Path:** `screenshots/20-lost-found-management.png`
-    *   **Description:** The item resolution console where admins approve or reject ownership claims.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **21. Issue Management**
-    *   **File Path:** `screenshots/21-issue-management.png`
-    *   **Description:** The timeline view of reported complaints, showcasing step-by-step status transitions and administrator comments.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **22. Notifications Management**
-    *   **File Path:** `screenshots/22-notifications-management.png`
-    *   **Description:** The administrative broadcast/alert matrix monitoring dashboard.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **23. Admin Profile**
-    *   **File Path:** `screenshots/23-admin-profile.png`
-    *   **Description:** Administrator account details and security settings page.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-
-</details>
-
-<details>
-<summary><b>📱 Optional & Responsive Previews (3 items)</b></summary>
-
-*   **24. Mobile View**
-    *   **File Path:** `screenshots/24-mobile-view.png`
-    *   **Description:** Capture of the mobile responsive viewport layout showing collapsed menus and optimized content sizing.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **25. Tablet View**
-    *   **File Path:** `screenshots/25-tablet-view.png`
-    *   **Description:** Capture of the tablet viewport showing grid wrap and adaptive card dimensions.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-*   **26. Dark Mode**
-    *   **File Path:** `screenshots/26-dark-mode.png`
-    *   **Description:** Showcase of the application dashboard elements rendered in native dark theme mode.
-    *   **Status:** ❌ Missing (Contribution Welcome)
-
-</details>
-
----
-
-## 🔮 Future Enhancements
-
-*   **💬 Live Support Chat:** Integrated socket logs between students and desk administrators.
-*   **📅 Event Calendar Feed:** Direct calendar integrations mapping to academic exams, events, and deadlines.
-*   **🤖 AI Support Assistant:** Automated chatbot that fields basic FAQs about college procedures, form queries, and hostel bookings.
+**Local Testing Credentials:**
+* **Administrator:** `admin@campus.edu` / `admin123`
+* **Student:** `student@campus.edu` / `student123`
 
 ---
 
 ## 🤝 Contributing
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Contributions are welcome! Please follow these steps to contribute:
-
-1. Fork the Project Repository.
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the Branch (`git push origin feature/AmazingFeature`).
-5. Open a Pull Request.
-
----
-
-## 📄 License & Acknowledgments
-
-*   Distributed under the MIT License. See `LICENSE` for more information.
-*   **Acknowledgments:** Built with components by Tailwind CSS, Lucide icons, and the NextAuth community. Created for next-generation campus automation.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ---
 
 <div align="center">
-  <b>Developed with ❤️ for Smart Campus Ecosystems</b>
+  Built with ☕ and Next.js for the <b>[Insert Hackathon Name]</b> Hackathon. <br/>
+  Distributed under the MIT License.
 </div>
