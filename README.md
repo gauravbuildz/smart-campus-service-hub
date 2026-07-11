@@ -60,7 +60,11 @@
 ## 🎥 Live Demo
 
 <div align="center">
-  <video src="assets/demo.mp4" width="90%" controls style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);"></video>
+  <video width="90%" controls style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);">
+    <source src="assets/demo.mp4" type="video/mp4">
+    <source src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
   <p><i>Complete application walkthrough</i></p>
 </div>
 
