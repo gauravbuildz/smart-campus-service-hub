@@ -60,8 +60,8 @@
 ## 🎥 Live Demo
 
 <div align="center">
-  <video src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.mp4" width="90%" controls style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);"></video>
-  <p><i>Complete application walkthrough (If the video player doesn't render, <a href="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.mp4">click here to view the video</a>)</i></p>
+  <video src="assets/demo.mp4" width="90%" controls style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);"></video>
+  <p><i>Complete application walkthrough</i></p>
 </div>
 
 ---
