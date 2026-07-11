@@ -94,28 +94,14 @@ Traditional campus administration relies on manual paperwork, physical notice bo
 <a id="problem-statement"></a>
 ## Problem Statement
 
-| Traditional Campus | Smart Campus Service Hub |
-| :--- | :--- |
-| ❌ Scattered notices on physical corkboards or chat groups | 📢 Centralized announcement feed with priorities and expiry dates |
-| ❌ Paper-heavy certificate and ID card request forms | ⚡ Digitized, role-protected online request workflows |
-| ❌ Infrastructure tickets verbalized or forgotten | 🔒 Interactive issue logs with real-time status timelines |
-| ❌ Lost belongings tracked on paper logs | 🎒 Verifiable digital claims dashboard with image proofs |
+Traditional campus administration is slowed down by manual, paper-based workflows and decentralized communication channels. Notices scattered across physical boards or informal chat groups lead to missed deadlines and confusion. Students face long queues to submit certificate applications or ID card request forms. Infrastructure maintenance issues are often verbalized and forgotten without tracking or accountability, while lost belongings tracked on paper logs are prone to collection disputes.
 
 ---
 
 <a id="proposed-solution"></a>
 ## Proposed Solution
 
-The platform automates the student-to-admin lifecycle through a highly coordinated system architecture:
-
-```mermaid
-graph LR
-    Student[🧑‍🎓 Student] -->|Submit Request / Issue| DB[⚡ Live Dashboard]
-    DB -->|Store Ticket| API[📡 Serverless Route]
-    API -->|Process & Log| Admin[👩‍💼 Admin Panel]
-    Admin -->|Review & Action| Update[🔔 Notification Inbox]
-    Update -->|Track Resolution| Completed[✅ Completed / Resolved]
-```
+The Smart Campus Service Hub provides a centralized web portal that automates campus workflows. Students can login securely to submit service requests, log infrastructure complaints, and claim lost items with image proof. The system routes these requests through serverless API endpoints directly to an administrator control panel. Administrators can prioritize tickets, broadcast notices, review claims, and update resolution statuses in real-time, sending automatic updates to the student's notification drawer.
 
 ---
 
