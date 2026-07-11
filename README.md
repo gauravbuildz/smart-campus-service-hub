@@ -2,7 +2,7 @@
 
 # 🎓 Smart Campus Service Hub
 
-### *A Premium, Centralized Web Ecosystem Modernizing Student Services & Campus Operations*
+### *A Modern, Secure & Centralized Digital Campus Management Platform.*
 
 [![Vercel Demo](https://img.shields.io/badge/Vercel-Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://smart-campus-management-4rg6.vercel.app/)
 [![Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gaurav-spnrec/smart-campus-management-1.git)
@@ -10,8 +10,6 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/gaurav-spnrec/smart-campus-management-1?style=flat&color=yellow&logo=github)](https://github.com/gaurav-spnrec/smart-campus-management-1/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/gaurav-spnrec/smart-campus-management-1?style=flat&color=lightgrey&logo=github)](https://github.com/gaurav-spnrec/smart-campus-management-1/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/gaurav-spnrec/smart-campus-management-1?style=flat&color=red)](https://github.com/gaurav-spnrec/smart-campus-management-1/issues)
-[![GitHub contributors](https://img.shields.io/github/contributors/gaurav-spnrec/smart-campus-management-1?style=flat&color=green)](https://github.com/gaurav-spnrec/smart-campus-management-1/graphs/contributors)
 [![GitHub last commit](https://img.shields.io/github/last-commit/gaurav-spnrec/smart-campus-management-1?style=flat&color=blue)](https://github.com/gaurav-spnrec/smart-campus-management-1/commits/main)
 
 <p align="center">
@@ -26,83 +24,131 @@
   <img src="https://img.shields.io/badge/UploadThing-7.7.4-E25F5F?style=flat-square" alt="UploadThing">
 </p>
 
----
+<img src="assets/banner.png" alt="Smart Campus Service Hub Banner" width="100%" style="border-radius: 8px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15); margin: 20px 0;" />
 
 </div>
 
-## 📌 Table of Contents
-
-- [About Project](#-about-project)
-- [Problem Statement](#-problem-statement)
-- [Proposed Solution](#-proposed-solution)
-- [Key Features](#-key-features)
-- [Screenshots](#-screenshots)
-- [Technology Stack](#-technology-stack)
-- [System Architecture](#-system-architecture)
-- [Authentication Flow](#-authentication-flow)
-- [Folder Structure](#-folder-structure)
-- [Installation](#-installation)
-- [Environment Variables](#-environment-variables)
-- [Demo Credentials](#-demo-credentials)
-- [Deployment](#-deployment)
-- [API Overview](#-api-overview)
-- [Security](#-security)
-- [Performance](#-performance)
-- [Future Scope](#-future-scope)
-- [Contributing](#-contributing)
-- [License](#-license)
-- [Developer](#-developer)
+> [!NOTE]
+> **Repository Assets**: The cover banner is located at `assets/banner.png`. If it is missing, create an `assets/` directory in the root and add your custom image there.
 
 ---
 
-## 💡 About Project
+## 📌 Table of Contents
+
+- [🎥 Live Demo](#-live-demo)
+- [📖 About Project](#-about-project)
+- [🎯 Why Smart Campus Service Hub?](#-why-smart-campus-service-hub)
+- [🚨 Problem Statement](#-problem-statement)
+- [🚀 Proposed Solution](#-proposed-solution)
+- [✨ Highlights](#-highlights)
+- [🔑 Key Features](#-key-features)
+- [📸 Screenshots](#-screenshots)
+- [🛠️ Technology Stack](#-technology-stack)
+- [🏗️ System Architecture](#-system-architecture)
+- [🔒 Authentication Flow](#-authentication-flow)
+- [🔄 Project Workflow](#-project-workflow)
+- [📂 Folder Structure](#-folder-structure)
+- [⚙️ Installation](#-installation)
+- [📝 Environment Variables](#-environment-variables)
+- [👤 Demo Credentials](#-demo-credentials)
+- [🌐 Deployment](#-deployment)
+- [📡 API Overview](#-api-overview)
+- [🛡️ Security](#-security)
+- [⚡ Performance](#-performance)
+- [🔮 Roadmap](#-roadmap)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🧔 Developer](#-developer)
+
+---
+
+## 🎥 Live Demo
+
+<div align="center">
+  <img src="assets/demo.gif" alt="Smart Campus Walkthrough Walkthrough" width="90%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);" />
+  <p><i>Complete application walkthrough</i></p>
+</div>
+
+> [!NOTE]
+> If the walkthrough GIF is missing, place your recorded walkthrough file at `assets/demo.gif`.
+
+---
+
+## 📖 About Project
 
 The **Smart Campus Service Hub** is a next-generation web application designed to digitize and centralize core campus student services. Traditional campuses are held back by fragmented communications, physical paperwork, and manual status auditing. This project provides a robust, role-based, real-time portal where students can submit service requests and complain about infrastructure failures, while administrators can track resolutions, broadcast unexpired notices, manage resources, and audit operational analytics under a unified, glassmorphic UI.
 
 ---
 
+## 🎯 Why Smart Campus Service Hub?
+
+Traditional campus administration relies on manual paperwork, physical notice boards, and scattered messaging channels. Smart Campus Service Hub modernizes these workflows, offering:
+
+> [!TIP]
+> **Frictionless Student Experience**: Students can request documents, log lost-and-found items, and track service requests in real-time without visiting office desks.
+
+> [!IMPORTANT]
+> **Operational Efficiency for Admins**: Centralized dashboards automate ticket routing, student records auditing, notice scheduling, and analytics tracking.
+
+---
+
 ## 🚨 Problem Statement
 
-Educational campuses are hubs of constant activity, yet their operations are bogged down by:
-- **Disconnected Channels**: Critical circulars and events are broadcasted across scattered chat groups or left unnoticed on physical boards.
-- **Manual Workloads**: Processing student requests for ID cards, Bonafide certificates, and parking passes relies on paper and physical queues.
-- **Opaque Issue Tracking**: Infrastructure complaints (classroom maintenance, slow WiFi) lack ticketing status tracking, creating resolution delay bottlenecks.
-- **Lost & Found Friction**: Claiming lost belongings depends on offline coordination and manual verification sheets.
+| Traditional Campus | Smart Campus Service Hub |
+| :--- | :--- |
+| ❌ Scattered notices on physical corkboards or chat groups | 📢 Centralized announcement feed with priorities and expiry dates |
+| ❌ Paper-heavy certificate and ID card request forms | ⚡ Digitized, role-protected online request workflows |
+| ❌ Infrastructure tickets verbalized or forgotten | 🔒 Interactive issue logs with real-time status timelines |
+| ❌ Lost belongings tracked on paper logs | 🎒 Verifiable digital claims dashboard with image proofs |
 
 ---
 
 ## 🚀 Proposed Solution
 
-**Smart Campus Service Hub** replaces administrative friction with elegant digital automation:
-- **Centralized Command Center**: One single source of truth for notices, documents, and workflows.
-- **Structured Digital Workflows**: ID cards, parking requests, and certificates are managed online with live status histories.
-- **Intelligent Ticketing**: Real-time complaints console with built-in auto-severity detection based on ticket description keywords.
-- **Secure Access Control**: Clear, role-based routing (`STUDENT` vs. `ADMIN`) mapping custom components dynamically to active session tokens.
+The platform automates the student-to-admin lifecycle through a highly coordinated system architecture:
+
+```mermaid
+graph LR
+    Student[🧑‍🎓 Student] -->|Submit Request / Issue| DB[⚡ Live Dashboard]
+    DB -->|Store Ticket| API[📡 Serverless Route]
+    API -->|Process & Log| Admin[👩‍💼 Admin Panel]
+    Admin -->|Review & Action| Update[🔔 Notification Inbox]
+    Update -->|Track Resolution| Completed[✅ Completed / Resolved]
+```
 
 ---
 
-## ✨ Key Features
+## ✨ Highlights
 
-### 🔑 Core Module Highlights
-
-| 🛡️ Secure Auth & RBAC | 🛠️ Complaints Desk | 📢 Broadcasts Hub |
+| ⚡ Lightning Fast | 🔒 Built Secure | 📱 Fully Responsive |
 | :--- | :--- | :--- |
-| **Role-Based Access**<br/>Middleware intercepts paths, redirecting users dynamically based on `STUDENT` or `ADMIN` roles mapping. | **Auto-Severity Detector**<br/>Complaints are parsed in real-time to flag severity tags (`HIGH` or `LOW`) based on details. | **Announcements Feed**<br/>Broadcast unexpired general/exam/event notices with pinned parameters and file attachments. |
+| Client-side queries leverage `SWR` caching for real-time responsiveness. | Password hashing with `bcryptjs` and path guards via NextAuth. | Native support for desktop sidebars and mobile drawer lists. |
 
-| 🎒 Claim Center | 📄 Resource Hub | 📊 Live Analytics |
+| 🎯 Role-Based (RBAC) | 📊 Live Analytics | ☁️ Cloud Ready |
 | :--- | :--- | :--- |
-| **Lost & Found Desk**<br/>Log lost items, upload image proofs, and submit claims. Admins approve/reject claims in one click. | **Academic Form Library**<br/>Centralized document catalog containing downloadable syllabi, timetables, and guidelines. | **Metrics Console**<br/>Interactive metrics tracking ticket logs, user counts, notice parameters, and status charts. |
+| Dynamic route rewrites for students and administrators. | Admin dashboard displaying issue distributions and statistics. | Engineered for Vercel Serverless and PostgreSQL cloud pools. |
+
+---
+
+## 🔑 Key Features
+
+- **🔐 NextAuth Protection**: Dynamic dashboard interfaces served according to student/admin JWT permissions.
+- **🛠️ Automated Ticketing**: Key-word matching auto-calculates severity level (`HIGH` or `LOW`) for faster triage.
+- **📢 Notice Board**: Broadcast events, exam schedules, and circulars with attachment options.
+- **🎒 Claims Engine**: Submit image claims on found items. Admin approvals auto-reject duplicate claims.
+- **📄 Forms Directory**: Downloadable course guidelines, timetables, and documents in one shared hub.
+- **📡 Serverless APIs**: Fully audited CRUD endpoints validating access scopes.
 
 ---
 
 ## 📸 Screenshots
 
-| [![Landing Page](screenshots/01-landing-page.png)](screenshots/01-landing-page.png) | [![Student Dashboard](screenshots/04-student-dashboard.png)](screenshots/04-student-dashboard.png) | [![Notices & Events](screenshots/05-notices-event.png)](screenshots/05-notices-event.png) |
+| <a href="screenshots/01-landing-page.png"><img src="screenshots/01-landing-page.png" alt="Landing Page" style="border-radius: 8px;" /></a> | <a href="screenshots/04-student-dashboard.png"><img src="screenshots/04-student-dashboard.png" alt="Student Dashboard" style="border-radius: 8px;" /></a> | <a href="screenshots/05-notices-event.png"><img src="screenshots/05-notices-event.png" alt="Notices & Events" style="border-radius: 8px;" /></a> |
 |:---:|:---:|:---:|
 | **Landing Page** | **Student Dashboard** | **Notices & Events** |
-| [![Lost & Found](screenshots/06-lost-found.png)](screenshots/06-lost-found.png) | [![Resource Hub](screenshots/07-resource-hub.png)](screenshots/07-resource-hub.png) | [![Service Requests](screenshots/08-service-request.png)](screenshots/08-service-request.png) |
+| <a href="screenshots/06-lost-found.png"><img src="screenshots/06-lost-found.png" alt="Lost & Found" style="border-radius: 8px;" /></a> | <a href="screenshots/07-resource-hub.png"><img src="screenshots/07-resource-hub.png" alt="Resource Hub" style="border-radius: 8px;" /></a> | <a href="screenshots/08-service-request.png"><img src="screenshots/08-service-request.png" alt="Service Requests" style="border-radius: 8px;" /></a> |
 | **Lost & Found** | **Resource Hub** | **Service Requests** |
-| [![Admin Dashboard](screenshots/10-admin-dashboard.png)](screenshots/10-admin-dashboard.png) | [![Student Management](screenshots/11-student-management.png)](screenshots/11-student-management.png) | [![Analytics Hub](screenshots/12-analytics-hub.png)](screenshots/12-analytics-hub.png) |
+| <a href="screenshots/10-admin-dashboard.png"><img src="screenshots/10-admin-dashboard.png" alt="Admin Dashboard" style="border-radius: 8px;" /></a> | <a href="screenshots/11-student-management.png"><img src="screenshots/11-student-management.png" alt="Student Management" style="border-radius: 8px;" /></a> | <a href="screenshots/12-analytics-hub.png"><img src="screenshots/12-analytics-hub.png" alt="Analytics Hub" style="border-radius: 8px;" /></a> |
 | **Admin Dashboard** | **Student Management** | **Analytics Hub** |
 
 ---
@@ -124,12 +170,14 @@ Educational campuses are hubs of constant activity, yet their operations are bog
 
 ## 🏗️ System Architecture
 
+The application decouples client views and server operations, utilizing Next.js middleware routing to dynamically guide users.
+
 ```mermaid
 graph TD
     Browser([🌐 Browser]) -->|HTTPS Request| NextJS[⚡ Next.js App Router]
-    NextJS -->|Interceptions| AuthGuard{🔒 NextAuth Middleware}
+    NextJS -->|Protected via Middleware| AuthGuard{🔒 NextAuth Middleware}
     AuthGuard -->|Dynamic Rewrite| AuthRoutes[📂 /dashboard]
-    AuthRoutes -->|API requests| APILayer[📡 Serverless API Routes]
+    AuthRoutes -->|API Request| APILayer[📡 Serverless API Routes]
     APILayer -->|Queries / Mutations| Prisma[⬢ Prisma ORM]
     Prisma -->|Read / Write| PG[(🐘 PostgreSQL Database)]
 ```
@@ -137,6 +185,8 @@ graph TD
 ---
 
 ## 🔒 Authentication Flow
+
+Detailed flow showing login validation, token issuance, and protected route authorization:
 
 ```mermaid
 sequenceDiagram
@@ -165,6 +215,20 @@ sequenceDiagram
         MW-->>Client: Allow request and render role-based view
         Client-->>User: Render Dashboard
     end
+```
+
+---
+
+## 🔄 Project Workflow
+
+```mermaid
+graph LR
+    User[🧑‍💻 User] --> Auth{🔒 Authentication}
+    Auth -->|Valid Session| Dash[⚡ Dashboard]
+    Dash -->|Perform Action| API[📡 Serverless API]
+    API -->|Read/Write| DB[(🐘 Database)]
+    DB -->|Dispatch Logs| Notif[🔔 Notifications Inbox]
+    Notif --> Success([✅ Success Status])
 ```
 
 ---
@@ -228,9 +292,9 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 | :--- | :--- | :--- |
 | `DATABASE_URL` | Yes | PostgreSQL connection string with pooling properties |
 | `DIRECT_URL` | Yes | Direct PostgreSQL connection string without poolers |
-| `NEXTAUTH_SECRET` | Yes | Custom cryptographic secret key for JWT hashes encryption |
+| `NEXTAUTH_SECRET` | Yes | Custom secret key for JWT hashes encryption |
 | `NEXTAUTH_URL` | Yes | Base canonical URL of the application site |
-| `UPLOADTHING_TOKEN`| No | Token for asset cloud upload (defaults to simulated mock folder) |
+| `UPLOADTHING_TOKEN`| No | Token for asset cloud upload (defaults to simulated mock) |
 
 ---
 
@@ -292,13 +356,13 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
-## 🔮 Future Scope
+## 🔮 Roadmap
 
-- **🤖 AI Campus Desk**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
-- **🔔 Push Integrations**: Web-push protocols to alert users about exam timetables and alerts.
-- **📱 QR Verification**: Secure QR check-ins for events, lectures, and resource claims.
-- **📅 Interactive Calendar**: Dynamic dashboard widgets syncing events to Outlook & Google Calendar.
-- **✉️ Transactional Mailer**: Automated email updates for service request approvals.
+- **🤖 AI Assistant**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
+- **🔔 Push Notifications**: Web-push protocols to alert users about exam timetables and alerts.
+- **📱 QR Attendance**: Secure QR check-ins for events, lectures, and resource claims.
+- **📅 Calendar Integration**: Dynamic dashboard widgets syncing events to Outlook & Google Calendar.
+- **✉️ Mobile App**: Wrap web app into a mobile interface for native iOS and Android push integration.
 
 ---
 
@@ -321,9 +385,21 @@ Distributed under the MIT License. See `LICENSE` for details.
 
 ## 🧔 Developer
 
+<div align="center">
+
 Designed and developed with ❤️ by **Gaurav Kumar**.
 
 <p align="center">
   <a href="https://github.com/gaurav-spnrec"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"></a>
   <a href="https://www.linkedin.com/in/gauravbuildz/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
 </p>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Built with ❤️ using Next.js + React + Prisma
+
+⭐ If you found this project useful, please give it a Star.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+</div>
