@@ -166,13 +166,29 @@ The portal automates these requests. Students log in, select the service they ne
 The application decouples client views and server operations, utilizing Next.js middleware routing to dynamically guide users.
 
 ```mermaid
-graph TD
-    Browser([🌐 Browser]) -->|HTTPS Request| NextJS[⚡ Next.js App Router]
-    NextJS -->|Protected via Middleware| AuthGuard{🔒 NextAuth Middleware}
-    AuthGuard -->|Dynamic Rewrite| AuthRoutes[📂 /dashboard]
-    AuthRoutes -->|API Request| APILayer[📡 Serverless API Routes]
-    APILayer -->|Queries / Mutations| Prisma[⬢ Prisma ORM]
-    Prisma -->|Read / Write| PG[(🐘 PostgreSQL Database)]
+flowchart TD
+    subgraph Client ["Client Interface"]
+        Browser([🌐 Web Browser])
+    end
+
+    subgraph App ["Serverless Application Layer"]
+        NextJS[⚡ Next.js App Router]
+        AuthGuard{🔒 NextAuth Middleware}
+        AuthRoutes[📂 /dashboard Route Rewriter]
+        APILayer[📡 Serverless API Endpoints]
+    end
+
+    subgraph Database ["Data Store Layer"]
+        Prisma[⬢ Prisma ORM]
+        PG[(🐘 PostgreSQL Database)]
+    end
+
+    Browser -->|HTTPS Request| NextJS
+    NextJS -->|Session Validation| AuthGuard
+    AuthGuard -->|Authorized Route| AuthRoutes
+    AuthRoutes -->|Request Processing| APILayer
+    APILayer -->|Object-Relational Mapping| Prisma
+    Prisma -->|Read & Write Operations| PG
 ```
 
 ---
@@ -235,12 +251,9 @@ graph LR
 smart-campus-management/
 ├── prisma/                 # Database schema models & seed scripts
 ├── public/                 # Static assets & public resources
-├── screenshots/            # UI screenshot gallery
 └── src/
-    ├── app/                # App Router files & Serverless API layers
-    │   ├── api/            # Role-protected API route endpoints
-    │   └── dashboard/      # Unified dynamic dashboard layouts
-    ├── components/         # Reusable core client components
+    ├── app/                # App Router folder (API & Dashboard views)
+    ├── components/         # Reusable client & server UI components
     ├── lib/                # Database config & NextAuth callbacks
     └── middleware.ts       # Route guard middleware
 ```
@@ -327,6 +340,9 @@ The platform is designed to be fully serverless-ready and can be deployed in min
 
 All routes except authentication callback require valid NextAuth cookies.
 
+<details>
+<summary>View API Endpoints</summary>
+
 | Endpoint | Method | Role | Purpose |
 | :--- | :--- | :--- | :--- |
 | `/api/auth/register` | `POST` | Public | Student signup callback |
@@ -336,6 +352,8 @@ All routes except authentication callback require valid NextAuth cookies.
 | `/api/lost-found` | `GET`/`POST`/`DELETE` | User/Admin | List, report, and delete lost/found items |
 | `/api/lost-found/claim`| `GET`/`POST`/`PATCH` | Student/Admin | Manage item claims ownership workflows |
 | `/api/notifications` | `GET`/`PATCH` | Authorized | Read status drawer notifications in inbox |
+
+</details>
 
 ---
 
@@ -362,11 +380,11 @@ All routes except authentication callback require valid NextAuth cookies.
 <a id="roadmap"></a>
 ## Roadmap
 
-- **🤖 AI Assistant**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
-- **🔔 Push Notifications**: Web-push protocols to alert users about exam timetables and alerts.
-- **📱 QR Attendance**: Secure QR check-ins for events, lectures, and resource claims.
-- **📅 Calendar Integration**: Dynamic dashboard widgets syncing events to Outlook & Google Calendar.
-- **✉️ Mobile App**: Wrap web app into a mobile interface for native iOS and Android push integration.
+- [ ] **🤖 AI Assistant**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
+- [ ] **🔔 Push Notifications**: Web-push protocols to alert users about exam timetables and alerts.
+- [ ] **📱 QR Attendance**: Secure QR check-ins for events, lectures, and resource claims.
+- [ ] **📅 Calendar Integration**: Dynamic dashboard widgets syncing events to Outlook & Google Calendar.
+- [ ] **✉️ Mobile App**: Wrap web app into a mobile interface for native iOS and Android push integration.
 
 ---
 
