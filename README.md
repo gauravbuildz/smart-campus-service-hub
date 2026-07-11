@@ -35,8 +35,7 @@
 
 ## Table of Contents
 
-- [🌐 Live Web Application](#live-web-application)
-- [🎥 Video Demonstration](#video-demonstration)
+- [🎥 Walkthrough](#walkthrough)
 - [📖 About Project](#about-project)
 - [🎯 Why Smart Campus Service Hub?](#why-smart-campus-service-hub)
 - [🚨 Problem Statement](#problem-statement)
@@ -63,24 +62,21 @@
 
 ---
 
-<a id="live-web-application"></a>
-## Live Web Application
-
-The platform is deployed live and can be accessed at:
-- **URL**: [smart-campus-management-4rg6.vercel.app](https://smart-campus-management-4rg6.vercel.app/)
+<a id="walkthrough"></a>
+## Walkthrough
 
 <div align="center">
   <img src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.gif" alt="Smart Campus Walkthrough" width="90%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);" />
   <p><i>Complete application walkthrough</i></p>
+
+  <br />
+
+  <p align="center">
+    <a href="https://smart-campus-management-4rg6.vercel.app/"><b>🚀 Live Demo</b></a> •
+    <a href="https://www.youtube.com/watch?v=your-video-id"><b>🎥 Watch Demo</b></a> •
+    <a href="https://github.com/gaurav-spnrec/smart-campus-management-1.git"><b>💻 Source Code</b></a>
+  </p>
 </div>
-
----
-
-<a id="video-demonstration"></a>
-## Video Demonstration
-
-You can watch a detailed video walkthrough of the project on YouTube:
-- **YouTube Link**: [Watch Video Demo](https://www.youtube.com/watch?v=your-video-id) *(Replace `your-video-id` with your uploaded video ID)*
 
 ---
 
