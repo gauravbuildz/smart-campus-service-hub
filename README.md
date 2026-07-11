@@ -57,6 +57,7 @@
 
 ---
 
+<a id="live-demo"></a>
 ## Live Demo
 
 <div align="center">
@@ -66,12 +67,14 @@
 
 ---
 
+<a id="about-project"></a>
 ## About Project
 
 The **Smart Campus Service Hub** is a next-generation web application designed to digitize and centralize core campus student services. Traditional campuses are held back by fragmented communications, physical paperwork, and manual status auditing. This project provides a robust, role-based, real-time portal where students can submit service requests and complain about infrastructure failures, while administrators can track resolutions, broadcast unexpired notices, manage resources, and audit operational analytics under a unified, glassmorphic UI.
 
 ---
 
+<a id="why-smart-campus-service-hub"></a>
 ## Why Smart Campus Service Hub?
 
 Traditional campus administration relies on manual paperwork, physical notice boards, and scattered messaging channels. Smart Campus Service Hub modernizes these workflows, offering:
@@ -84,6 +87,7 @@ Traditional campus administration relies on manual paperwork, physical notice bo
 
 ---
 
+<a id="problem-statement"></a>
 ## Problem Statement
 
 | Traditional Campus | Smart Campus Service Hub |
@@ -95,6 +99,7 @@ Traditional campus administration relies on manual paperwork, physical notice bo
 
 ---
 
+<a id="proposed-solution"></a>
 ## Proposed Solution
 
 The platform automates the student-to-admin lifecycle through a highly coordinated system architecture:
@@ -110,6 +115,7 @@ graph LR
 
 ---
 
+<a id="highlights"></a>
 ## Highlights
 
 | ⚡ Lightning Fast | 🔒 Built Secure | 📱 Fully Responsive |
@@ -122,6 +128,7 @@ graph LR
 
 ---
 
+<a id="key-features"></a>
 ## Key Features
 
 - **🔐 NextAuth Protection**: Dynamic dashboard interfaces served according to student/admin JWT permissions.
@@ -133,6 +140,7 @@ graph LR
 
 ---
 
+<a id="screenshots"></a>
 ## Screenshots
 
 | <a href="screenshots/01-landing-page.png"><img src="screenshots/01-landing-page.png" alt="Landing Page" style="border-radius: 8px;" /></a> | <a href="screenshots/04-student-dashboard.png"><img src="screenshots/04-student-dashboard.png" alt="Student Dashboard" style="border-radius: 8px;" /></a> | <a href="screenshots/05-notices-event.png"><img src="screenshots/05-notices-event.png" alt="Notices & Events" style="border-radius: 8px;" /></a> |
@@ -145,6 +153,7 @@ graph LR
 
 ---
 
+<a id="technology-stack"></a>
 ## Technology Stack
 
 | Layer | Technology | Purpose | Version |
@@ -160,6 +169,7 @@ graph LR
 
 ---
 
+<a id="system-architecture"></a>
 ## System Architecture
 
 The application decouples client views and server operations, utilizing Next.js middleware routing to dynamically guide users.
@@ -176,6 +186,7 @@ graph TD
 
 ---
 
+<a id="authentication-flow"></a>
 ## Authentication Flow
 
 Detailed flow showing login validation, token issuance, and protected route authorization:
@@ -211,6 +222,7 @@ sequenceDiagram
 
 ---
 
+<a id="project-workflow"></a>
 ## Project Workflow
 
 ```mermaid
@@ -225,6 +237,7 @@ graph LR
 
 ---
 
+<a id="folder-structure"></a>
 ## Folder Structure
 
 ```text
@@ -243,6 +256,7 @@ smart-campus-management/
 
 ---
 
+<a id="installation"></a>
 ## Installation
 
 ### 1. Clone the Project
@@ -278,6 +292,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
+<a id="environment-variables"></a>
 ## Environment Variables
 
 | Variable | Required | Description |
@@ -290,6 +305,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
+<a id="demo-credentials"></a>
 ## Demo Credentials
 
 For testing the application locally or checking deployment, use the following accounts:
@@ -303,6 +319,7 @@ For testing the application locally or checking deployment, use the following ac
 
 ---
 
+<a id="deployment"></a>
 ## Deployment
 
 The platform is designed to be fully serverless-ready and can be deployed in minutes on Vercel:
@@ -314,6 +331,7 @@ The platform is designed to be fully serverless-ready and can be deployed in min
 
 ---
 
+<a id="api-overview"></a>
 ## API Overview
 
 All routes except authentication callback require valid NextAuth cookies.
@@ -330,6 +348,7 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
+<a id="security"></a>
 ## Security
 
 - **Session Security**: Stateless JSON Web Tokens (JWT) mapped securely via NextAuth.
@@ -339,6 +358,7 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
+<a id="performance"></a>
 ## Performance
 
 - **Optimized Caching**: Leverages `SWR` query caches to update lists in real-time, avoiding full page refreshes.
@@ -348,6 +368,7 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
+<a id="roadmap"></a>
 ## Roadmap
 
 - **🤖 AI Assistant**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
@@ -358,6 +379,7 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
+<a id="contributing"></a>
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
@@ -369,12 +391,14 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ---
 
+<a id="license"></a>
 ## License
 
 Distributed under the MIT License. See `LICENSE` for details.
 
 ---
 
+<a id="developer"></a>
 ## Developer
 
 <div align="center">
