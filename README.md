@@ -8,6 +8,13 @@
 
 ### *A Modern, Secure & Centralized Digital Campus Management Platform.*
 
+<p align="center">
+  <a href="https://smart-campus-management-4rg6.vercel.app/"><b>🚀 Live Demo</b></a> •
+  <a href="#-local-development-setup"><b>⚙️ Setup Guide</b></a> •
+  <a href="https://github.com/gaurav-spnrec/smart-campus-management-1.git"><b>📦 Repository</b></a> •
+  <a href="https://github.com/gaurav-spnrec/smart-campus-management-1/issues"><b>🐛 Report Bug</b></a>
+</p>
+
 [![Vercel Demo](https://img.shields.io/badge/Vercel-Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://smart-campus-management-4rg6.vercel.app/)
 [![Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gaurav-spnrec/smart-campus-management-1.git)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
@@ -28,41 +35,12 @@
   <img src="https://img.shields.io/badge/UploadThing-7.7.4-E25F5F?style=flat-square" alt="UploadThing">
 </p>
 
----
-
 </div>
 
-## Table of Contents
-
-- [🎥 Live Demo](#live-demo)
-- [📖 About Project](#about-project)
-- [🎯 Why Smart Campus Service Hub?](#why-smart-campus-service-hub)
-- [🚨 Problem Statement](#problem-statement)
-- [🚀 Proposed Solution](#proposed-solution)
-- [✨ Highlights](#highlights)
-- [🔑 Key Features](#key-features)
-- [📸 Screenshots](#screenshots)
-- [🛠️ Technology Stack](#technology-stack)
-- [🏗️ System Architecture](#system-architecture)
-- [🔒 Authentication Flow](#authentication-flow)
-- [🔄 Project Workflow](#project-workflow)
-- [📂 Folder Structure](#folder-structure)
-- [⚙️ Installation](#installation)
-- [📝 Environment Variables](#environment-variables)
-- [👤 Demo Credentials](#demo-credentials)
-- [🌐 Deployment](#deployment)
-- [📡 API Overview](#api-overview)
-- [🛡️ Security](#security)
-- [⚡ Performance](#performance)
-- [🔮 Roadmap](#roadmap)
-- [🤝 Contributing](#contributing)
-- [📄 License](#license)
-- [🧔 Developer](#developer)
-
 ---
 
-<a id="live-demo"></a>
-## Live Demo
+<a id="-interactive-walkthrough"></a>
+## 🎥 Interactive Walkthrough
 
 <div align="center">
   <img src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.gif" alt="Smart Campus Walkthrough" width="90%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);" />
@@ -71,15 +49,45 @@
 
 ---
 
-<a id="about-project"></a>
-## About Project
+<a id="-table-of-contents"></a>
+## 🗂️ Table of Contents
+
+- [🎥 Interactive Walkthrough](#-interactive-walkthrough)
+- [📖 Project Overview](#-project-overview)
+- [🎯 Core Value Proposition](#-core-value-proposition)
+- [🚨 The Challenge & The Solution](#-the-challenge--the-solution)
+- [🚀 Solution Architecture](#-solution-architecture)
+- [✨ Key Product Highlights](#-key-product-highlights)
+- [🔑 Core Features & Capabilities](#-core-features--capabilities)
+- [📸 User Interface Gallery](#-user-interface-gallery)
+- [🛠️ Technology Stack & Tools](#-technology-stack--tools)
+- [🏗️ System Architecture & Data Flow](#-system-architecture--data-flow)
+- [🔒 Authentication & Session Lifecycle](#-authentication--session-lifecycle)
+- [🔄 Core Operational Workflow](#-core-operational-workflow)
+- [📂 Directory Layout](#-directory-layout)
+- [⚙️ Local Development Setup](#-local-development-setup)
+- [📝 Environment Configuration](#-environment-configuration)
+- [👤 Testing Credentials](#-testing-credentials)
+- [🌐 Cloud Deployment Guide](#-cloud-deployment-guide)
+- [📡 REST API Reference](#-rest-api-reference)
+- [🛡️ Security & Access Control Guardrails](#-security--access-control-guardrails)
+- [⚡ Performance Optimizations](#-performance-optimizations)
+- [🔮 Product Roadmap](#-product-roadmap)
+- [🤝 Contributing Guidelines](#-contributing-guidelines)
+- [📄 License Agreement](#-license-agreement)
+- [🧔 Project Maintainer](#-project-maintainer)
+
+---
+
+<a id="-project-overview"></a>
+## 📖 Project Overview
 
 The **Smart Campus Service Hub** is a next-generation web application designed to digitize and centralize core campus student services. Traditional campuses are held back by fragmented communications, physical paperwork, and manual status auditing. This project provides a robust, role-based, real-time portal where students can submit service requests and complain about infrastructure failures, while administrators can track resolutions, broadcast unexpired notices, manage resources, and audit operational analytics under a unified, glassmorphic UI.
 
 ---
 
-<a id="why-smart-campus-service-hub"></a>
-## Why Smart Campus Service Hub?
+<a id="-core-value-proposition"></a>
+## 🎯 Core Value Proposition
 
 Traditional campus administration relies on manual paperwork, physical notice boards, and scattered messaging channels. Smart Campus Service Hub modernizes these workflows, offering:
 
@@ -91,10 +99,10 @@ Traditional campus administration relies on manual paperwork, physical notice bo
 
 ---
 
-<a id="problem-statement"></a>
-## Problem Statement
+<a id="-the-challenge--the-solution"></a>
+## 🚨 The Challenge & The Solution
 
-| Traditional Campus | Smart Campus Service Hub |
+| Traditional Campus Challenges | Smart Campus Service Hub Solutions |
 | :--- | :--- |
 | ❌ Scattered notices on physical corkboards or chat groups | 📢 Centralized announcement feed with priorities and expiry dates |
 | ❌ Paper-heavy certificate and ID card request forms | ⚡ Digitized, role-protected online request workflows |
@@ -103,8 +111,8 @@ Traditional campus administration relies on manual paperwork, physical notice bo
 
 ---
 
-<a id="proposed-solution"></a>
-## Proposed Solution
+<a id="-solution-architecture"></a>
+## 🚀 Solution Architecture
 
 The platform automates the student-to-admin lifecycle through a highly coordinated system architecture:
 
@@ -119,8 +127,8 @@ graph LR
 
 ---
 
-<a id="highlights"></a>
-## Highlights
+<a id="-key-product-highlights"></a>
+## ✨ Key Product Highlights
 
 | ⚡ Lightning Fast | 🔒 Built Secure | 📱 Fully Responsive |
 | :--- | :--- | :--- |
@@ -132,8 +140,8 @@ graph LR
 
 ---
 
-<a id="key-features"></a>
-## Key Features
+<a id="-core-features--capabilities"></a>
+## 🔑 Core Features & Capabilities
 
 - **🔐 NextAuth Protection**: Dynamic dashboard interfaces served according to student/admin JWT permissions.
 - **🛠️ Automated Ticketing**: Key-word matching auto-calculates severity level (`HIGH` or `LOW`) for faster triage.
@@ -144,21 +152,25 @@ graph LR
 
 ---
 
-<a id="screenshots"></a>
-## Screenshots
+<a id="-user-interface-gallery"></a>
+## 📸 User Interface Gallery
+
+<div align="center">
 
 | <a href="screenshots/01-landing-page.png"><img src="screenshots/01-landing-page.png" alt="Landing Page" style="border-radius: 8px;" /></a> | <a href="screenshots/04-student-dashboard.png"><img src="screenshots/04-student-dashboard.png" alt="Student Dashboard" style="border-radius: 8px;" /></a> | <a href="screenshots/05-notices-event.png"><img src="screenshots/05-notices-event.png" alt="Notices & Events" style="border-radius: 8px;" /></a> |
-|:---:|:---:|:---:|
+| :---: | :---: | :---: |
 | **Landing Page** | **Student Dashboard** | **Notices & Events** |
 | <a href="screenshots/06-lost-found.png"><img src="screenshots/06-lost-found.png" alt="Lost & Found" style="border-radius: 8px;" /></a> | <a href="screenshots/07-resource-hub.png"><img src="screenshots/07-resource-hub.png" alt="Resource Hub" style="border-radius: 8px;" /></a> | <a href="screenshots/08-service-request.png"><img src="screenshots/08-service-request.png" alt="Service Requests" style="border-radius: 8px;" /></a> |
 | **Lost & Found** | **Resource Hub** | **Service Requests** |
 | <a href="screenshots/10-admin-dashboard.png"><img src="screenshots/10-admin-dashboard.png" alt="Admin Dashboard" style="border-radius: 8px;" /></a> | <a href="screenshots/11-student-management.png"><img src="screenshots/11-student-management.png" alt="Student Management" style="border-radius: 8px;" /></a> | <a href="screenshots/12-analytics-hub.png"><img src="screenshots/12-analytics-hub.png" alt="Analytics Hub" style="border-radius: 8px;" /></a> |
 | **Admin Dashboard** | **Student Management** | **Analytics Hub** |
 
+</div>
+
 ---
 
-<a id="technology-stack"></a>
-## Technology Stack
+<a id="-technology-stack--tools"></a>
+## 🛠️ Technology Stack & Tools
 
 | Layer | Technology | Purpose | Version |
 | :--- | :--- | :--- | :--- |
@@ -173,8 +185,8 @@ graph LR
 
 ---
 
-<a id="system-architecture"></a>
-## System Architecture
+<a id="-system-architecture--data-flow"></a>
+## 🏗️ System Architecture & Data Flow
 
 The application decouples client views and server operations, utilizing Next.js middleware routing to dynamically guide users.
 
@@ -190,8 +202,8 @@ graph TD
 
 ---
 
-<a id="authentication-flow"></a>
-## Authentication Flow
+<a id="-authentication--session-lifecycle"></a>
+## 🔒 Authentication & Session Lifecycle
 
 Detailed flow showing login validation, token issuance, and protected route authorization:
 
@@ -226,8 +238,8 @@ sequenceDiagram
 
 ---
 
-<a id="project-workflow"></a>
-## Project Workflow
+<a id="-core-operational-workflow"></a>
+## 🔄 Core Operational Workflow
 
 ```mermaid
 graph LR
@@ -241,8 +253,8 @@ graph LR
 
 ---
 
-<a id="folder-structure"></a>
-## Folder Structure
+<a id="-directory-layout"></a>
+## 📂 Directory Layout
 
 ```text
 smart-campus-management/
@@ -260,8 +272,8 @@ smart-campus-management/
 
 ---
 
-<a id="installation"></a>
-## Installation
+<a id="-local-development-setup"></a>
+## ⚙️ Local Development Setup
 
 ### 1. Clone the Project
 ```bash
@@ -270,7 +282,7 @@ cd smart-campus-management-1
 ```
 
 ### 2. Configure Environment
-Create a `.env` file in the root directory (see [Environment Variables](#environment-variables)).
+Create a `.env` file in the root directory (see [Environment Configuration](#-environment-configuration)).
 
 ### 3. Install Dependencies
 ```bash
@@ -296,21 +308,21 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
-<a id="environment-variables"></a>
-## Environment Variables
+<a id="-environment-configuration"></a>
+## 📝 Environment Configuration
 
 | Variable | Required | Description |
-| :--- | :--- | :--- |
+| :--- | :---: | :--- |
 | `DATABASE_URL` | Yes | PostgreSQL connection string with pooling properties |
 | `DIRECT_URL` | Yes | Direct PostgreSQL connection string without poolers |
 | `NEXTAUTH_SECRET` | Yes | Custom secret key for JWT hashes encryption |
 | `NEXTAUTH_URL` | Yes | Base canonical URL of the application site |
-| `UPLOADTHING_TOKEN`| No | Token for asset cloud upload (defaults to simulated mock) |
+| `UPLOADTHING_TOKEN` | No | Token for asset cloud upload (defaults to simulated mock) |
 
 ---
 
-<a id="demo-credentials"></a>
-## Demo Credentials
+<a id="-testing-credentials"></a>
+## 👤 Testing Credentials
 
 For testing the application locally or checking deployment, use the following accounts:
 
@@ -323,8 +335,8 @@ For testing the application locally or checking deployment, use the following ac
 
 ---
 
-<a id="deployment"></a>
-## Deployment
+<a id="-cloud-deployment-guide"></a>
+## 🌐 Cloud Deployment Guide
 
 The platform is designed to be fully serverless-ready and can be deployed in minutes on Vercel:
 
@@ -335,25 +347,25 @@ The platform is designed to be fully serverless-ready and can be deployed in min
 
 ---
 
-<a id="api-overview"></a>
-## API Overview
+<a id="-rest-api-reference"></a>
+## 📡 REST API Reference
 
 All routes except authentication callback require valid NextAuth cookies.
 
 | Endpoint | Method | Role | Purpose |
-| :--- | :--- | :--- | :--- |
+| :--- | :---: | :---: | :--- |
 | `/api/auth/register` | `POST` | Public | Student signup callback |
 | `/api/students` | `GET`/`PUT`/`DELETE` | Admin | Student user database operations |
 | `/api/notices` | `GET`/`POST`/`DELETE` | User/Admin | Notice board events creation & listings |
 | `/api/issues` | `GET`/`POST`/`PATCH` | Student/Admin | Raise complaints and log workflow audits |
 | `/api/lost-found` | `GET`/`POST`/`DELETE` | User/Admin | List, report, and delete lost/found items |
-| `/api/lost-found/claim`| `GET`/`POST`/`PATCH` | Student/Admin | Manage item claims ownership workflows |
+| `/api/lost-found/claim` | `GET`/`POST`/`PATCH` | Student/Admin | Manage item claims ownership workflows |
 | `/api/notifications` | `GET`/`PATCH` | Authorized | Read status drawer notifications in inbox |
 
 ---
 
-<a id="security"></a>
-## Security
+<a id="-security--access-control-guardrails"></a>
+## 🛡️ Security & Access Control Guardrails
 
 - **Session Security**: Stateless JSON Web Tokens (JWT) mapped securely via NextAuth.
 - **Path Guarding**: Server-side middleware checks route structures to block unauthorized page requests.
@@ -362,8 +374,8 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
-<a id="performance"></a>
-## Performance
+<a id="-performance-optimizations"></a>
+## ⚡ Performance Optimizations
 
 - **Optimized Caching**: Leverages `SWR` query caches to update lists in real-time, avoiding full page refreshes.
 - **Server Components**: Leverages React Server Components (RSC) to reduce client-side bundle size.
@@ -372,8 +384,8 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
-<a id="roadmap"></a>
-## Roadmap
+<a id="-product-roadmap"></a>
+## 🔮 Product Roadmap
 
 - **🤖 AI Assistant**: Large-Language Model assistant to resolve student FAQs and direct inquiries.
 - **🔔 Push Notifications**: Web-push protocols to alert users about exam timetables and alerts.
@@ -383,10 +395,11 @@ All routes except authentication callback require valid NextAuth cookies.
 
 ---
 
-<a id="contributing"></a>
-## Contributing
+<a id="-contributing-guidelines"></a>
+## 🤝 Contributing Guidelines
 
 Contributions are welcome! Please follow these steps to contribute:
+
 1. Fork the project repository.
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
@@ -395,15 +408,15 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ---
 
-<a id="license"></a>
-## License
+<a id="-license-agreement"></a>
+## 📄 License Agreement
 
 Distributed under the MIT License. See `LICENSE` for details.
 
 ---
 
-<a id="developer"></a>
-## Developer
+<a id="-project-maintainer"></a>
+## 🧔 Project Maintainer
 
 <div align="center">
 
