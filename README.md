@@ -24,8 +24,6 @@
   <img src="https://img.shields.io/badge/UploadThing-7.7.4-E25F5F?style=flat-square" alt="UploadThing">
 </p>
 
-<img src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/banner.png" alt="Smart Campus Service Hub Banner" width="100%" style="border-radius: 8px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15); margin: 20px 0;" />
-
 ---
 
 </div>
