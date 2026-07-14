@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/hero-banner.png" alt="Smart Campus Service Hub Hero Banner" width="100%" height="280" style="border-radius: 8px; object-fit: cover;" />
+<img src="assets/hero-banner-v2.png" alt="Smart Campus Service Hub Hero Banner" width="100%" height="280" style="border-radius: 8px; object-fit: cover;" />
 
 <br /><br />
 
