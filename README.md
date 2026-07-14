@@ -11,7 +11,7 @@
 
 <br />
 
-> **💡 Elevator Pitch**: Smart Campus Service Hub is a student-first portal that digitizes certificate requests, logs maintenance complaints, and automates lost-and-found claims under a single, role-based workflow.
+> **💡 Elevator Pitch:** Smart Campus Service Hub is a student-first portal that digitizes certificate requests, logs maintenance complaints, and automates lost-and-found claims under a single, role-based workflow.
 
 An online portal for students to submit requests, report infrastructure issues, and track lost-and-found items.
 
@@ -50,7 +50,7 @@ An online portal for students to submit requests, report infrastructure issues, 
 
 <br />
 
-**🔐 Role-Based Authentication** &nbsp;&bull;&nbsp; **📢 Smart Notice Board** &nbsp;&bull;&nbsp; **🛠️ Complaint Management** &nbsp;&bull;&nbsp; **🎒 Lost & Found** &nbsp;&bull;&nbsp; **📊 Analytics Dashboard** &nbsp;&bull;&nbsp; **📱 Responsive Design** &nbsp;&bull;&nbsp; **⚡ Real-Time Updates**
+**🔐 Role-Based Access Control** &nbsp;&bull;&nbsp; **📢 Smart Notice Board** &nbsp;&bull;&nbsp; **🛠️ Complaint Management** &nbsp;&bull;&nbsp; **🎒 Lost & Found** &nbsp;&bull;&nbsp; **📊 Analytics Dashboard** &nbsp;&bull;&nbsp; **📱 Responsive Design** &nbsp;&bull;&nbsp; **⚡ Real-Time Updates**
 
 </div>
 
@@ -100,7 +100,7 @@ An online portal for students to submit requests, report infrastructure issues, 
 
 ## 📖 About
 
-Smart Campus Service Hub is an all-in-one digital portal designed to streamline everyday campus operations. The application provides students with a self-service workspace to request academic credentials (certificates, transcripts), submit localized infrastructure maintenance complaints, and list lost-and-found items. 
+Smart Campus Service Hub is a production-grade, all-in-one digital portal designed to streamline everyday campus operations. Built to eliminate paper-based latency and fragmented notice boards, the application provides students with a self-service workspace to request academic credentials (certificates, transcripts), submit localized infrastructure maintenance complaints, and list lost-and-found items.
 
 Administrators are equipped with a unified console to manage incoming student requests, triage maintenance tickets, verify lost asset claims, and broadcast global notice announcements to the campus.
 
