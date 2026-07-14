@@ -6,7 +6,7 @@
 
 # Smart Campus Service Hub
 
-### *An online portal for students to submit requests, report infrastructure issues, and track lost-and-found items.*
+### _An online portal for students to submit requests, report infrastructure issues, and track lost-and-found items._
 
 > **💡 Elevator Pitch**: Smart Campus Service Hub is a student-first portal that digitizes certificate requests, logs maintenance complaints, and automates lost-and-found claims under a single, role-based workflow.
 
@@ -41,6 +41,7 @@
 
 <a id="walkthrough"></a>
 <img src="https://github.com/gauravbuildz/smart-campus-management/raw/main/assets/demo.gif" alt="Smart Campus Walkthrough" width="90%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);" />
+
 <p><i>Complete application walkthrough showing student and admin portals</i></p>
 
 </div>
@@ -62,6 +63,7 @@
 ---
 
 <a id="about"></a>
+
 ## About
 
 This portal is built to handle everyday campus tasks online. It gives students a single place to apply for documents (like certificates or ID cards), report physical maintenance issues (like broken lights or classroom problems), and post lost-and-found items. Administrators can log in to view the queue of requests, update their status, and broadcast notices to the student body.
@@ -69,54 +71,58 @@ This portal is built to handle everyday campus tasks online. It gives students a
 ---
 
 <a id="problem-vs-solution"></a>
+
 ## Problem vs. Solution
 
-| Traditional Campus Bottlenecks | Smart Campus Service Hub Solutions |
-| :--- | :--- |
-| **📢 Scattered Notices**<br>Circulars posted on physical boards or informal chat groups lead to missed deadlines and outdated details. | **Centralized Notice Board**<br>Priority-tagged circular feed with automated post expiration filters to keep announcements current. |
-| **📄 Paper-Heavy Forms**<br>Applying for documents (certificates, transcript IDs) requires physical paperwork, signatures, and office queues. | **Digital Service Requests**<br>Secure online request workflows where students apply, upload details, and track progress. |
-| **🛠️ Opaque Maintenance Logs**<br>Infrastructure bugs (broken class lights, offline routers) are verbalized and forgotten without tracking. | **Interactive Complaint Desk**<br>Auditable logs tracking ticket resolution paths, severity priorities, and coordinator status logs. |
-| **🎒 Hard-to-Search Registers**<br>Lost and found records kept in handwritten ledger books lead to collection disputes and audit delays. | **Verified Claims Engine**<br>Visual item gallery requiring claim proofs. Approving a claim automatically rejects duplicate reports. |
+| Traditional Campus Bottlenecks                                                                                                                | Smart Campus Service Hub Solutions                                                                                                   |
+| :-------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| **📢 Scattered Notices**<br>Circulars posted on physical boards or informal chat groups lead to missed deadlines and outdated details.        | **Centralized Notice Board**<br>Priority-tagged circular feed with automated post expiration filters to keep announcements current.  |
+| **📄 Paper-Heavy Forms**<br>Applying for documents (certificates, transcript IDs) requires physical paperwork, signatures, and office queues. | **Digital Service Requests**<br>Secure online request workflows where students apply, upload details, and track progress.            |
+| **🛠️ Opaque Maintenance Logs**<br>Infrastructure bugs (broken class lights, offline routers) are verbalized and forgotten without tracking.   | **Interactive Complaint Desk**<br>Auditable logs tracking ticket resolution paths, severity priorities, and coordinator status logs. |
+| **🎒 Hard-to-Search Registers**<br>Lost and found records kept in handwritten ledger books lead to collection disputes and audit delays.      | **Verified Claims Engine**<br>Visual item gallery requiring claim proofs. Approving a claim automatically rejects duplicate reports. |
 
 ---
 
 <a id="features"></a>
+
 ## Core Features
 
-| Feature | Description | Business/Operational Benefit |
-| :--- | :--- | :--- |
-| **🔒 Secure Authentication** | NextAuth JWT-based session security with bcryptjs password hashing. | Guarantees account isolation and protects personal records. |
-| **🎯 Role-Based Access (RBAC)** | Strict client-side router and server-side middleware validation. | Restricts administrative operations and dashboards to validated admins. |
-| **🧑‍🎓 Student Workspace** | Clean portal for submitting tickets, tracking claims, and downloading resources. | Empowers students with self-service features, removing administrative queues. |
-| **👩‍💼 Admin Panel** | Unified panel to review tickets, approve claims, and manage student details. | Centralizes triage workflows and reduces administrative response times. |
-| **📢 Dynamic Notice Board** | Category-tagged circulars with attachment options and automatic post expiration. | Prevents communications fragmentation and keeps details up to date. |
-| **🎒 Verified Lost & Found** | Claim verification engine requiring image proof uploads. | Automates lost asset claims and prevents duplicate/fraudulent collection. |
-| **🛠️ Complaint Desk** | Categorized ticket manager with automated priority assignment. | Accelerates infrastructure repairs by organizing tasks by urgency. |
-| **📄 Shared Resource Hub** | Centralized directory for college handbooks, guides, and schedules. | Minimizes in-office inquiries for standard campus documentation. |
-| **📊 Analytics Dashboard** | Visual charts showing ticket status distributions and audit graphs. | Helps administration identify infrastructure bottlenecks and audit workloads. |
-| **🔔 Alert Notification Drawer** | User-scoped notification center updating on ticket status changes. | Informs students instantly when tickets are resolved or approved. |
-| **⚡ Service Request Engine** | Digital application forms for certificates, documents, and credentials. | Eliminates paper forms and standardizes application review workflows. |
+| Feature                          | Description                                                                      | Business/Operational Benefit                                                  |
+| :------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+| **🔒 Secure Authentication**     | NextAuth JWT-based session security with bcryptjs password hashing.              | Guarantees account isolation and protects personal records.                   |
+| **🎯 Role-Based Access (RBAC)**  | Strict client-side router and server-side middleware validation.                 | Restricts administrative operations and dashboards to validated admins.       |
+| **🧑‍🎓 Student Workspace**         | Clean portal for submitting tickets, tracking claims, and downloading resources. | Empowers students with self-service features, removing administrative queues. |
+| **👩‍💼 Admin Panel**               | Unified panel to review tickets, approve claims, and manage student details.     | Centralizes triage workflows and reduces administrative response times.       |
+| **📢 Dynamic Notice Board**      | Category-tagged circulars with attachment options and automatic post expiration. | Prevents communications fragmentation and keeps details up to date.           |
+| **🎒 Verified Lost & Found**     | Claim verification engine requiring image proof uploads.                         | Automates lost asset claims and prevents duplicate/fraudulent collection.     |
+| **🛠️ Complaint Desk**            | Categorized ticket manager with automated priority assignment.                   | Accelerates infrastructure repairs by organizing tasks by urgency.            |
+| **📄 Shared Resource Hub**       | Centralized directory for college handbooks, guides, and schedules.              | Minimizes in-office inquiries for standard campus documentation.              |
+| **📊 Analytics Dashboard**       | Visual charts showing ticket status distributions and audit graphs.              | Helps administration identify infrastructure bottlenecks and audit workloads. |
+| **🔔 Alert Notification Drawer** | User-scoped notification center updating on ticket status changes.               | Informs students instantly when tickets are resolved or approved.             |
+| **⚡ Service Request Engine**    | Digital application forms for certificates, documents, and credentials.          | Eliminates paper forms and standardizes application review workflows.         |
 
 ---
 
 <a id="screenshots"></a>
+
 ## Screenshots
 
 <div align="center">
 
-| <img src="screenshots/01-landing-page.png" alt="Landing Page" width="100%" /> | <img src="screenshots/04-student-dashboard.png" alt="Student Dashboard" width="100%" /> |
-| :---: | :---: |
-| **Landing Portal** | **Student Workspace** |
-| <img src="screenshots/05-notices-event.png" alt="Notice Board" width="100%" /> | <img src="screenshots/07-resource-hub.png" alt="Resource Hub" width="100%" /> |
-| **Notice Board** | **Shared Resource Hub** |
-| <img src="screenshots/10-admin-dashboard.png" alt="Admin Dashboard" width="100%" /> | <img src="screenshots/12-analytics-hub.png" alt="Analytics" width="100%" /> |
-| **Admin Control Panel** | **Operational Analytics** |
+|    <img src="screenshots/01-landing-page.png" alt="Landing Page" width="100%" />    | <img src="screenshots/04-student-dashboard.png" alt="Student Dashboard" width="100%" /> |
+| :---------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: |
+|                                 **Landing Portal**                                  |                                  **Student Workspace**                                  |
+|   <img src="screenshots/05-notices-event.png" alt="Notice Board" width="100%" />    |      <img src="screenshots/07-resource-hub.png" alt="Resource Hub" width="100%" />      |
+|                                  **Notice Board**                                   |                                 **Shared Resource Hub**                                 |
+| <img src="screenshots/10-admin-dashboard.png" alt="Admin Dashboard" width="100%" /> |       <img src="screenshots/12-analytics-hub.png" alt="Analytics" width="100%" />       |
+|                               **Admin Control Panel**                               |                                **Operational Analytics**                                |
 
 </div>
 
 ---
 
 <a id="architecture"></a>
+
 ## System Architecture
 
 The application decouples client views and server operations, utilizing Next.js middleware routing to dynamically guide users.
@@ -150,34 +156,36 @@ flowchart TD
 ---
 
 <a id="tech-stack"></a>
+
 ## Tech Stack
 
-| Category | Technology | Purpose | Version |
-| :--- | :--- | :--- | :---: |
-| **Frontend** | Next.js (App Router) | Client/Server rendering and navigation | `16.2.6` |
-| **Frontend** | React | Component state life cycles and view logic | `19.2.4` |
-| **Frontend** | Tailwind CSS | Responsive UI styling and theme management | `v4.0` |
-| **Frontend** | SWR | High-speed cache syncing and polling hooks | `2.4.2` |
-| **Backend** | Serverless Routes | API handlers and request validation | - |
-| **Backend** | UploadThing | Secure attachment and image storage integrations | `7.7.4` |
-| **Database** | Prisma | Schema modeling and type-safe query builder | `5.18.0` |
-| **Database** | PostgreSQL | Relational database engine | - |
-| **Authentication** | NextAuth | User credentials session verification | `4.24.14` |
-| **Deployment** | Vercel | Production cloud deployment hosting | - |
+| Category           | Technology           | Purpose                                          |  Version  |
+| :----------------- | :------------------- | :----------------------------------------------- | :-------: |
+| **Frontend**       | Next.js (App Router) | Client/Server rendering and navigation           | `16.2.6`  |
+| **Frontend**       | React                | Component state life cycles and view logic       | `19.2.4`  |
+| **Frontend**       | Tailwind CSS         | Responsive UI styling and theme management       |  `v4.0`   |
+| **Frontend**       | SWR                  | High-speed cache syncing and polling hooks       |  `2.4.2`  |
+| **Backend**        | Serverless Routes    | API handlers and request validation              |     -     |
+| **Backend**        | UploadThing          | Secure attachment and image storage integrations |  `7.7.4`  |
+| **Database**       | Prisma               | Schema modeling and type-safe query builder      | `5.18.0`  |
+| **Database**       | PostgreSQL           | Relational database engine                       |     -     |
+| **Authentication** | NextAuth             | User credentials session verification            | `4.24.14` |
+| **Deployment**     | Vercel               | Production cloud deployment hosting              |     -     |
 
 ---
 
 <a id="impact-dev-insights"></a>
+
 ## Project Impact & Dev Insights
 
 ### Project Impact
 
-| Segment | Operational Impact | Value Delivered |
-| :--- | :--- | :--- |
-| **🧑‍🎓 Students** | Real-time tracking and 24/7 self-service portal. | Saves hours of queuing and provides absolute clarity on ticket updates. |
-| **👩‍🏫 Faculty & Staff** | Streamlined notice publishing and resource distribution. | Reduces administrative distraction and classrooms setup delays. |
-| **👩‍💼 Administration** | Automated routing, analytics charts, and unified queues. | Lowers overhead, speeds up resolution loops, and improves auditing. |
-| **🏫 Campus Digitization** | Elimination of paper trails and siloed communication channels. | Establishes a modern, sustainable, and transparent campus environment. |
+| Segment                    | Operational Impact                                             | Value Delivered                                                         |
+| :------------------------- | :------------------------------------------------------------- | :---------------------------------------------------------------------- |
+| **🧑‍🎓 Students**            | Real-time tracking and 24/7 self-service portal.               | Saves hours of queuing and provides absolute clarity on ticket updates. |
+| **👩‍🏫 Faculty & Staff**     | Streamlined notice publishing and resource distribution.       | Reduces administrative distraction and classrooms setup delays.         |
+| **👩‍💼 Administration**      | Automated routing, analytics charts, and unified queues.       | Lowers overhead, speeds up resolution loops, and improves auditing.     |
+| **🏫 Campus Digitization** | Elimination of paper trails and siloed communication channels. | Establishes a modern, sustainable, and transparent campus environment.  |
 
 ### Challenges Faced
 
@@ -196,48 +204,56 @@ flowchart TD
 ---
 
 <a id="installation"></a>
+
 ## Setup Guide
 
 ### 1. Clone the Project
+
 ```bash
 git clone https://github.com/gaurav-spnrec/smart-campus-management-1.git
 cd smart-campus-management-1
 ```
 
 ### 2. Configure Environment
+
 Create a `.env` file in the root directory (see [Environment Variables](#environment-variables)).
 
 ### 3. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 4. Push Database Schema
+
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
 ### 5. Seed Initial Data
+
 ```bash
 npx prisma db seed
 ```
 
 ### 6. Launch Local Server
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ### Environment Variables
 
-| Variable | Required | Description |
-| :--- | :---: | :--- |
-| `DATABASE_URL` | Yes | PostgreSQL connection string with pooling properties |
-| `DIRECT_URL` | Yes | Direct PostgreSQL connection string without poolers |
-| `NEXTAUTH_SECRET` | Yes | Custom secret key for JWT hashes encryption |
-| `NEXTAUTH_URL` | Yes | Base canonical URL of the application site |
-| `UPLOADTHING_TOKEN`| No | Token for asset cloud upload (defaults to simulated mock) |
+| Variable            | Required | Description                                               |
+| :------------------ | :------: | :-------------------------------------------------------- |
+| `DATABASE_URL`      |   Yes    | PostgreSQL connection string with pooling properties      |
+| `DIRECT_URL`        |   Yes    | Direct PostgreSQL connection string without poolers       |
+| `NEXTAUTH_SECRET`   |   Yes    | Custom secret key for JWT hashes encryption               |
+| `NEXTAUTH_URL`      |   Yes    | Base canonical URL of the application site                |
+| `UPLOADTHING_TOKEN` |    No    | Token for asset cloud upload (defaults to simulated mock) |
 
 ### Demo Credentials
 
@@ -283,15 +299,15 @@ All routes except authentication callback require valid NextAuth cookies.
 <details>
 <summary>View API Endpoints</summary>
 
-| Endpoint | Method | Role | Purpose |
-| :--- | :--- | :--- | :--- |
-| `/api/auth/register` | `POST` | Public | Student signup callback |
-| `/api/students` | `GET`/`PUT`/`DELETE` | Admin | Student user database operations |
-| `/api/notices` | `GET`/`POST`/`DELETE` | User/Admin | Notice board events creation & listings |
-| `/api/issues` | `GET`/`POST`/`PATCH` | Student/Admin | Raise complaints and log workflow audits |
-| `/api/lost-found` | `GET`/`POST`/`DELETE` | User/Admin | List, report, and delete lost/found items |
-| `/api/lost-found/claim`| `GET`/`POST`/`PATCH` | Student/Admin | Manage item claims ownership workflows |
-| `/api/notifications` | `GET`/`PATCH` | Authorized | Read status drawer notifications in inbox |
+| Endpoint                | Method                | Role          | Purpose                                   |
+| :---------------------- | :-------------------- | :------------ | :---------------------------------------- |
+| `/api/auth/register`    | `POST`                | Public        | Student signup callback                   |
+| `/api/students`         | `GET`/`PUT`/`DELETE`  | Admin         | Student user database operations          |
+| `/api/notices`          | `GET`/`POST`/`DELETE` | User/Admin    | Notice board events creation & listings   |
+| `/api/issues`           | `GET`/`POST`/`PATCH`  | Student/Admin | Raise complaints and log workflow audits  |
+| `/api/lost-found`       | `GET`/`POST`/`DELETE` | User/Admin    | List, report, and delete lost/found items |
+| `/api/lost-found/claim` | `GET`/`POST`/`PATCH`  | Student/Admin | Manage item claims ownership workflows    |
+| `/api/notifications`    | `GET`/`PATCH`         | Authorized    | Read status drawer notifications in inbox |
 
 </details>
 
@@ -336,6 +352,7 @@ Distributed under the MIT License. See `LICENSE` for details.
 ---
 
 <a id="developer"></a>
+
 ## Developer
 
 <div align="center">
@@ -356,4 +373,3 @@ Built with ❤️ using Next.js • React • Prisma • PostgreSQL
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 </div>
-
